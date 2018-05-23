@@ -17,35 +17,53 @@ previousFeatures = strcat("previous", FeatureNames)';
 
 %% create interactions
 
-intract = {};
+intrac = {};
 for f = 1:nFeatures
     for c = 1:nCharacters
-        interactions(end+1, :) = {cellstr(presentFeatures(f)), cellstr(presentCharacters(c))};
+        intrac(end+1, :) = {cellstr(presentFeatures(f)), cellstr(presentCharacters(c))};
     end
 end
 for f = 1:nFeatures
     for c = 1:nCharacters
-        interactions(end+1, :) = {cellstr(presentCharacters(c)), cellstr(presentFeatures(f))};
+        intrac(end+1, :) = {cellstr(presentCharacters(c)), cellstr(presentFeatures(f))};
     end
 end
 for f = 1:nFeatures
     for c = 1:nFeatures
-        interactions(end+1, :) = {cellstr(previousFeatures(f)), cellstr(presentFeatures(c))};
+        intrac(end+1, :) = {cellstr(previousFeatures(f)), cellstr(presentFeatures(c))};
     end
 end
 for f = 1:nFeatures
     for c = 1:nFeatures
-        interactions(end+1, :) = {cellstr(questionsAsked(f)), cellstr(presentFeatures(c))};
+        intrac(end+1, :) = {cellstr(questionsAsked(f)), cellstr(presentFeatures(c))};
     end
 end
 for c = 1:nFeatures
-    interactions(end+1, :) = {cellstr(questionsAsked(c)), cellstr(opponentsTiles)};
+    intrac(end+1, :) = {cellstr(questionsAsked(c)), cellstr(opponentsTiles)};
 end
 for c = 1:nCharacters
-    interactions(end+1, :) = {cellstr(opponentsTiles), cellstr(presentCharacters(c))};
+    intrac(end+1, :) = {cellstr(opponentsTiles), cellstr(presentCharacters(c))};
 end
 names = vertcat(presentFeatures,presentCharacters,opponentsTiles,questionsAsked,previousFeatures);
-[intra, names] = mk_adj_mat(interactions, names);
+
+% Still don't know the difference, so I keep them equal
+interc = intrac;
+
+[intra, ~] = mk_adj_mat(intrac, names);
+inter = mk_adj_mat(interc, names, 0);
+
+obs = names;
+for i = 1:length(names)
+    onodes(i) = strmatch(obs(i), names);
+end
+onodes = sort(onodes);
+
+dnodes = 1:nCharacters;
+ns = 2*ones(1, nCharacters);%binary nodes
+bnet = mk_dbn(intra, inter, ns, 'iscrete', dnodes);
+for i = 1:2*nCharacters
+    bnet.CPD{i} = tabular(bnet, i);
+end
 %% Visualize Bayesian Net
 G = bnet.dag;
 draw_graph(G);
