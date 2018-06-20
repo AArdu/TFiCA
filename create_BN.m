@@ -9,7 +9,7 @@ function bnet = create_BN()
 
 %%    
     % names of all nodes
-    allNames = vertcat(CharacterNames, FeatureNames');
+    allNames = vertcat(CharacterNames, FeatureNames')
     
     % create character nodes
     presentAlex=1;
@@ -53,6 +53,12 @@ function bnet = create_BN()
     redCheek = 38; % 2
     sadLooking = 39; % 2 
     
+    allNames={'presentAlex','presentAlfred','presentAnita','presentAnne','presentBernard', 'presentBill', 'presentCharles', 'presentClaire', 'presentDavid' ...
+         'presentEric', 'presentFrans', 'presentGeorge', 'presentHerman', 'presentJoe', 'presentMaria', 'presentMax', 'presentPaul', 'presentPeter', 'presentPhilip' ...
+        'presentRichard', 'presentRobert', 'presentSam', 'presentSusan', 'presentTom', 'hairColor', 'hairStyle', 'sex', 'eyeColor', 'facialHair','mouthSize' ...
+        'hat', 'glasses', 'age', 'noseSize', 'hairTexture', 'eyebrowThickness', 'earRings', 'redCheek', 'sadLooking'}
+        
+        
     N = 39;
     dag = zeros(N,N);
     
@@ -60,8 +66,10 @@ function bnet = create_BN()
     dag(1:24, 25:39) = 1;
     
     % define sizes of nodes
-    ns = 2*ones(1, 39);
+    ns = 2*ones(1, 24);
+    ps = 2^24;
+    ns = [ns  [ps *5, ps * 3, ps * 2, ps * 2, ps * 5, ps * 2, ps * 2, ps * 2, ps * 2, ps * 2, ps * 3, ps * 2, ps * 2, ps * 2, ps * 2,]];
 
-    bnet = mk_bnet(dag, ns, 'names', cell(allNames), 'discrete', 1:39);
+    bnet = mk_bnet(dag, ns, 'names', allNames, 'discrete', 1:39);
     G = bnet.dag;
     draw_graph(G);
