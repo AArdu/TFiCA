@@ -15,7 +15,7 @@ previousFeatures = strcat("previous", FeatureNames)';
 probCharacters = strcat("prob", CharacterNames);
 
  
-%% create links
+%% create links 
 
 intrac = {};
 
