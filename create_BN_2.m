@@ -18,8 +18,10 @@ nPastFeatures = length(PastSelectedFeatures);
 FeatCoocur={};
 for i = 1:nPastFeatures
     for j = 1:nPastFeatures
-        if strcmp(PastSelectedFeatures(i),PastSelectedFeatures(j)) == 0
-            FeatCoocur(i,j) = strcat(PastSelectedFeatures(i),PastSelectedFeatures(j));
+        if ((i < j) && (strcmp(PastSelectedFeatures(i),PastSelectedFeatures(j)) == 0)) && (ugly_strcomp_bools(PastSelectedFeatures(i),PastSelectedFeatures(j)))
+            
+            FeatCoocur{end+1} = strcat(char(PastSelectedFeatures(i)),char(PastSelectedFeatures(j)));
+            %FeatCoocur{end+1} = ugly_strcomp(PastSelectedFeatures(i),PastSelectedFeatures(j));
         end
     end
 end
