@@ -58,7 +58,7 @@ function bnet = create_BN()
         'presentRichard', 'presentRobert', 'presentSam', 'presentSusan', 'presentTom', 'hairColor', 'hairStyle', 'sex', 'eyeColor', 'facialHair','mouthSize' ...
         'hat', 'glasses', 'age', 'noseSize', 'hairTexture', 'eyebrowThickness', 'earRings', 'redCheek', 'sadLooking'}
         
-        
+    %because the characters are mutually exclusive they might actually belong to 1 node. 
     N = 39;
     dag = zeros(N,N);
     
@@ -68,7 +68,8 @@ function bnet = create_BN()
     % define sizes of nodes
     ns = 2*ones(1, 24);
     ps = 2^24;
-    ns = [ns  [ps *5, ps * 3, ps * 2, ps * 2, ps * 5, ps * 2, ps * 2, ps * 2, ps * 2, ps * 2, ps * 3, ps * 2, ps * 2, ps * 2, ps * 2,]];
+   	%ns = [ns  [ps *5, ps * 3, ps * 2, ps * 2, ps * 5, ps * 2, ps * 2, ps * 2, ps * 2, ps * 2, ps * 3, ps * 2, ps * 2, ps * 2, ps * 2,]];
+    ns = [ns  [5,  3, 2,  2,  5, 2,  2,  2,  2, 2, 3, 2, 2, 2, 2,]];
 
     bnet = mk_bnet(dag, ns, 'names', allNames, 'discrete', 1:39);
     G = bnet.dag;
