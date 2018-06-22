@@ -9,10 +9,10 @@ CharacterNames = initialGameboard(2:end,1);
 nCharacters = length(CharacterNames);
 
 % create arrays of names for the nodes in the BN
-presentFeatures = strcat("present", FeatureNames)'; 
-opponentsGuessProb = "OpponentsGuessProb";
-previousFeatures = strcat("previous", FeatureNames)';
-probCharacters = strcat("prob", CharacterNames);
+presentFeatures = strcat('present', FeatureNames)'; 
+opponentsGuessProb = 'OpponentsGuessProb';
+previousFeatures = strcat('previous', FeatureNames)';
+probCharacters = strcat('prob', CharacterNames);
 
  
 %% create links 
@@ -43,10 +43,10 @@ interc = intrac;
 [intra, ~] = mk_adj_mat(intrac, names);
 inter = mk_adj_mat(interc, names, 0);
 
-obs = names;
-for i = 1:length(names)
-    onodes(i) = strmatch(obs(i), names);
-end
+%obs = names;
+%for i = 1:length(names)
+%   onodes(i) = strc(obs(i), names);
+%end
 % onodes = sort(onodes);
 
 dnodes = 1:nCharacters;
