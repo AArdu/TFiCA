@@ -66,13 +66,5 @@ classdef Opponent < handle
                 return
             end
         end
-        
-        %% update the array of possible features that are still in the game
-        % TODO: make this shit work
-        function obj = updateHypotheses(obj, question, answer)
-            if answer == true
-                obj.opp_feat_hypo(string(obj.opp_feat_hypo) == string(question)) = [];
-            end
-        end
     end
 end
