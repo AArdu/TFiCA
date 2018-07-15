@@ -2,4 +2,4 @@
 Final Project (MFE + Beam thingy)
 
 ## TODOS:
-* create a TODO list
+* Figure out how to connect co-occurrencies with Feature array
