@@ -4,7 +4,9 @@ addpath('./Functions')
 load('./Data/initialGameboard.mat')
 
 %% start simulation
-num_simulations = 1;
+num_simulations = 5;
+
+prev_games = zeros(1, length(initialGameboard(1, 2:end)));
 
 for i = 1:num_simulations
     turn = 0;
@@ -13,12 +15,20 @@ for i = 1:num_simulations
     % reset players to initial values before starting a game
     [agent, opponent] = initializePlayers(initialGameboard);
 
+    prev_games = (prev_games + cell2mat(initialGameboard(string(initialGameboard(1:end, 1))...
+        == string(opponent.opponent_mystery), 2:end))) / 2;
+ 
     while turn < 31
         % insert code for the BN here
         %###################
         agn_ques = [1, randi([2, 10])];
         %###################
-        
+        if agn_ques(1) == 1
+            sprintf("Agent asks: Does your character have %s?", string(initialGameboard(1, agn_ques(2))))
+        elseif agn_ques(1) == 2
+            sprintf("Agent asks: Is your character %s?", string(initialGameboard(agn_ques(2), 1)));
+        end
+            
         opp_ans = opponent.ask_opponent(agn_ques(1), agn_ques(2));
         if ~isempty(opponent.winner)
             winner = opponent.winner; 
@@ -27,8 +37,27 @@ for i = 1:num_simulations
 %         agent.updateBoard(agn_ques, opp_ans)
         
         opp_ques = opponent.formulate_question;
-        
+        if opp_ques{1} == 1
+            sprintf("Opponent asks: Does your character have %s?", opp_ques{2})
+        elseif opp_ques{1} == 2
+            sprintf("Opponent asks: Is your character %s?", opp_ques{2});
+        end
         agent_ans = logical(randi([0, 1]));
+        
+        if agent_ans == true
+            if opp_ques{1} == 1
+                sprintf("Agent replies: Yes, my character has %s?", opp_ques{2})
+            elseif opp_ques{1} == 2
+                sprintf("Agent replies: Yes, my character is %s?", opp_ques{2});
+            end
+        elseif agent_ans == false
+            if opp_ques{1} == 1
+                sprintf("Agent replies: No, my character does not have %s?", opp_ques{2})
+            elseif opp_ques{1} == 2
+                sprintf("Agent replies: No, my character is not %s?", opp_ques{2});
+            end
+        end
+        
         
         [new_op_char, new_op_feat] = updateBoard(initialGameboard, ...
             opponent.opp_char_hypo, opponent.opp_feat_hypo, opp_ques, agent_ans);

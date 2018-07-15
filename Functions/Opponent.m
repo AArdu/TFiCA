@@ -16,11 +16,11 @@ classdef Opponent < handle
             answer = "notihng";
             if feat_or_char == 1
                 % check if feature is part of opponent's character
-                if obj.opp_mys_features{which_one} == 1
-                    sprintf("Yes, my character has %s", obj.allFeatures{which_one})
+                if obj.opp_mys_features{which_one - 1} == 1
+                    sprintf("Opponent replies: Yes, my character has %s", obj.allFeatures{which_one - 1})
                     answer = true;
-                else
-                    sprintf("No, my character does not have %s", obj.allFeatures{which_one})
+                elseif obj.opp_mys_features{which_one - 1} == 0
+                    sprintf("Opponent replies: No, my character does not have %s", obj.allFeatures{which_one - 1})
                     answer = false;
                 end
             elseif feat_or_char == 2

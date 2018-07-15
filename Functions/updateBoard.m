@@ -27,7 +27,7 @@ function [up_char, up_feat] = updateBoard(gboard, old_char, old_feat, hypt, answ
     up_f = old_feat; 
     for f = 1:length(gboard(1, 2:end))
         if any(string(gboard(1, f + 1)) == old_feat)
-            if isempty(find(cell2mat(gboard(2:end, gboard(1,:) == string(gboard(1, f + 1))))))
+            if isempty(find(cell2mat(gboard(2:end, gboard(1,:) == string(gboard(1, f + 1)))), 1))
 %                 sum(string(gboard(:, 1)) == up_char, f + 1) == 0
                 up_f(up_f == string(gboard{1, f + 1})) = [];
             end
