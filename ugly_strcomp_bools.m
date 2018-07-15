@@ -1,54 +1,36 @@
 function bool = ugly_strcomp(cell1, cell2)
     if strcmp(char(cell1),'BlackHair')
-        if (strcmp(char(cell2),'BrownHair')) || (strcmp(char(cell2),'BlondeHair')) || (strcmp(char(cell2),'RedHair')) || (strcmp(char(cell2),'GrayHair'))
+        if (strcmp(char(cell2),'BrownHair')) || (strcmp(char(cell2),'BlondeHair')) || (strcmp(char(cell2),'RedHair'))
             bool=0;
         else
             bool= 1;
         end
     elseif strcmp(char(cell1),'BrownHair')
-        if (strcmp(char(cell2),'BlackHair')) || (strcmp(char(cell2),'BlondeHair')) || (strcmp(char(cell2),'RedHair')) || (strcmp(char(cell2),'GrayHair'))
+        if (strcmp(char(cell2),'BlackHair')) || (strcmp(char(cell2),'BlondeHair')) || (strcmp(char(cell2),'RedHair'))
             bool=0;
         else
             bool= 1;
         end
     elseif strcmp(char(cell1),'BlondeHair')
-        if (strcmp(char(cell2),'BlackHair')) || (strcmp(char(cell2),'BrownHair')) || (strcmp(char(cell2),'RedHair')) || (strcmp(char(cell2),'GrayHair'))
+        if (strcmp(char(cell2),'BlackHair')) || (strcmp(char(cell2),'BrownHair')) || (strcmp(char(cell2),'RedHair'))
             bool=0;
         else
             bool= 1;
         end
     elseif strcmp(char(cell1),'RedHair')
-        if (strcmp(char(cell2),'BlackHair')) || (strcmp(char(cell2),'BrownHair')) || (strcmp(char(cell2),'BlondeHair')) || (strcmp(char(cell2),'GrayHair'))
-            bool=0;
-        else
-            bool= 1;
-        end
-    elseif strcmp(char(cell1),'GrayHair')
-        if (strcmp(char(cell2),'BlackHair')) || (strcmp(char(cell2),'BrownHair')) || (strcmp(char(cell2),'RedHair')) || (strcmp(char(cell2),'BlondeHair'))
-            bool=0;
-        else
-            bool= 1;
-        end
-    elseif strcmp(char(cell1),'GrayHair')
-        if (strcmp(char(cell2),'BlackHair')) || (strcmp(char(cell2),'BrownHair')) || (strcmp(char(cell2),'RedHair')) || (strcmp(char(cell2),'BlondeHair'))
+        if (strcmp(char(cell2),'BlackHair')) || (strcmp(char(cell2),'BrownHair')) || (strcmp(char(cell2),'BlondeHair'))
             bool=0;
         else
             bool= 1;
         end
     elseif strcmp(char(cell1),'ShortHair')
-        if (strcmp(char(cell2),'LongHair')) || (strcmp(char(cell2),'Bald'))
+        if (strcmp(char(cell2),'LongHair')) 
             bool=0;
         else
             bool= 1;
         end
      elseif strcmp(char(cell1),'LongHair')
-        if (strcmp(char(cell2),'ShortHair')) || (strcmp(char(cell2),'Bald'))
-            bool=0;
-        else
-            bool= 1;
-        end
-     elseif strcmp(char(cell1),'Bald')
-        if (strcmp(char(cell2),'ShortHair')) || (strcmp(char(cell2),'LongHair'))
+        if (strcmp(char(cell2),'ShortHair'))
             bool=0;
         else
             bool= 1;
@@ -80,44 +62,25 @@ function bool = ugly_strcomp(cell1, cell2)
         end
     %start facial hair comparison
     elseif strcmp(char(cell1),'NoFacialHair')
-        if (strcmp(char(cell2),'Mustache')) || (strcmp(char(cell2),'Beard')) || (strcmp(char(cell2),'MustacheBeard')) || (strcmp(char(cell2),'Goatee'))
+        if (strcmp(char(cell2),'Mustache')) || (strcmp(char(cell2),'Beard')) || (strcmp(char(cell2),'MustacheBeard'))
             bool=0;
         else
             bool= 1;
         end
    elseif strcmp(char(cell1),'Mustache')
-        if (strcmp(char(cell2),'NoFacialHair')) || (strcmp(char(cell2),'Beard')) || (strcmp(char(cell2),'MustacheBeard')) || (strcmp(char(cell2),'Goatee'))
+        if (strcmp(char(cell2),'NoFacialHair')) || (strcmp(char(cell2),'Beard')) || (strcmp(char(cell2),'MustacheBeard'))
             bool=0;
         else
             bool= 1;
         end
     elseif strcmp(char(cell1),'Beard')
-        if (strcmp(char(cell2),'Mustache')) || (strcmp(char(cell2),'NoFacialHair')) || (strcmp(char(cell2),'MustacheBeard')) || (strcmp(char(cell2),'Goatee'))
+        if (strcmp(char(cell2),'Mustache')) || (strcmp(char(cell2),'NoFacialHair')) || (strcmp(char(cell2),'MustacheBeard'))
             bool=0;
         else
             bool= 1;
         end
      elseif strcmp(char(cell1),'MustacheBeard')
-        if (strcmp(char(cell2),'Mustache')) || (strcmp(char(cell2),'Beard')) || (strcmp(char(cell2),'NoFacialHair')) || (strcmp(char(cell2),'Goatee'))
-            bool=0;
-        else
-            bool= 1;
-        end
-     elseif strcmp(char(cell1),'Goatee')
-        if (strcmp(char(cell2),'Mustache')) || (strcmp(char(cell2),'Beard')) || (strcmp(char(cell2),'MustacheBeard')) || (strcmp(char(cell2),'NoFacialHair'))
-            bool=0;
-        else
-            bool= 1;
-        end
-    %Start young and old comparison
-     elseif strcmp(char(cell1),'Young')
-        if (strcmp(char(cell2),'Old'))
-            bool=0;
-        else
-            bool= 1;
-        end
-     elseif strcmp(char(cell1),'Old')
-        if (strcmp(char(cell2),'Young'))
+        if (strcmp(char(cell2),'Mustache')) || (strcmp(char(cell2),'Beard')) || (strcmp(char(cell2),'NoFacialHair'))
             bool=0;
         else
             bool= 1;

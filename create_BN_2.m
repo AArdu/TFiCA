@@ -77,7 +77,7 @@ FeatCoocur=containers.Map(FeatCoocur, count);
 
 
 %feature nodes
-HairColor = (nPastFeatures+length(FeatCoocur)+2); % 5 => 130
+HairColor = (nPastFeatures+length(FeatCoocur)+2); % 5 => 130 
 HairStyle = (nPastFeatures+length(FeatCoocur)+3); % 3 => 
 Sex = (nPastFeatures+length(FeatCoocur)+4); % 2
 EyeColor =(nPastFeatures+length(FeatCoocur)+5); % 2

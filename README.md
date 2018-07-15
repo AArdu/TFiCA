@@ -1,5 +1,10 @@
 # TFiCA
-Final Project (MFE + Beam thingy)
+Final Project (Most Frugal Explanations vs Hierarchical Beam Search)
 
-## TODOS:
-* create a TODO list
+## Problems:
+* Figure out how to connect co-occurrencies with Feature array
+
+## Todo:
+* Create dag links 
+* update node sizes
+*
