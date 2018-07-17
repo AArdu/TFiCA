@@ -51,11 +51,11 @@ classdef Opponent < handle
                     feat_prob(f) = feat_prob(f) + s;
                 end
             end
-            char_prob = char_prob / length(obj.opp_feat_hypo);
-            feat_prob = feat_prob / length(obj.opp_char_hypo);
+            char_prob = char_prob ./ length(obj.opp_feat_hypo);
+            feat_prob = feat_prob ./ length(obj.opp_char_hypo);
             
             % if character has high prob of being mystery char, ask that
-            if max(char_prob) > 0.8
+            if length(char_prob) == 1
                 [~, q] = max(char_prob);
                 question = [2, obj.allCharacters(string(obj.allCharacters) == string(obj.opp_char_hypo(q)))];
                 return

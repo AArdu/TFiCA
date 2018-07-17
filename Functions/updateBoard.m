@@ -33,5 +33,6 @@ function [up_char, up_feat] = updateBoard(gboard, old_char, old_feat, hypt, answ
             end
         end
     end
+    up_f(up_f == string(hypt(2))) = [];
     up_feat = up_f;
 end

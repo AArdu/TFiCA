@@ -13,7 +13,7 @@ function [agent, op] = initializePlayers(inBoard)
     op.opp_feat_hypo = inBoard(1,2:end);
     op.opp_char_hypo = inBoard(2:end,1);
     
-    ag = "something";
+    ag.agent_mystery = allCharacters(randi([1, length(allCharacters)]));
     
     agent = ag;
     opponent = op;
