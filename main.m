@@ -3,6 +3,10 @@ clear all, clc
 addpath('./Functions')
 load('./Data/initialGameboard.mat')
 
+cd bnt-master
+addpath(genpathKPM(pwd))
+cd ../
+
 %% start simulation
 BN_won = 0;
 BN_lost = 0;
@@ -23,7 +27,7 @@ for i = 1:num_simulations
     prev_games = (prev_games + cell2mat(initialGameboard(string(initialGameboard(1:end, 1))...
         == string(opponent.opponent_mystery), 2:end))) / 2;
  
-    while turn < 31
+    while turn < 15
         % insert code for the BN here
         %###################
         agn_ques = [1, randi([2, 10])];
