@@ -24,12 +24,15 @@ for i = 1:num_simulations
     % reset players to initial values before starting a game
     [agent, opponent] = initializePlayers(initialGameboard);
 
+    % update prev_games in the BN
+    agent.bnet = agent.updatePrev_games(prev_games, agent.bnet);
     prev_games = (prev_games + cell2mat(initialGameboard(string(initialGameboard(1:end, 1))...
         == string(opponent.opponent_mystery), 2:end))) / 2;
  
-    while turn < 15
+    while turn < 18
         % insert code for the BN here
         %###################
+        
         agn_ques = [1, randi([2, 10])];
         %###################
         if agn_ques(1) == 1
