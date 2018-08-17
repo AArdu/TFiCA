@@ -1,0 +1,39 @@
+# main.m
+
+adds paths for BN toolbox
+initialize agent (BN) and opponent (greedy algorithm)
+updates probabilities on past feature nodes
+
+start game routine:
+
+TODO agent asks question (now randomly)
+opponent checks for answer and returns a break command if guessed character is correct
+
+TODO agent updates its gameboard: still to be determined if changing CPD or other
+opponent asks question about thing that has highest prob
+check if opponent's question is correct
+update opponent's board
+check if any winner
+
+# Functions/create_BN.m
+
+reconnected co-occurrences nodes
+TODO which are observed nodes really?
+
+# Functions/initializePlayers.m
+
+TODO create a method to select mystery characters with a criterion?
+
+# Functions/updateBoard.m
+
+removes characters and features from board according to the answer, returning updated board with remaining candidates
+
+# FUnctions/Opponent.m
+
+produce answer to question produced by agent by simple comparison
+formulates question to agent asking highest probaility candidate among features and characters
+
+# Functions/Agent.m
+
+nothing for now
+
