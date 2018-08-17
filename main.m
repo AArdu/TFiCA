@@ -29,11 +29,11 @@ for i = 1:num_simulations
     prev_games = (prev_games + cell2mat(initialGameboard(string(initialGameboard(1:end, 1))...
         == string(opponent.opponent_mystery), 2:end))) / 2;
  
-    while turn < 18
+    while turn < 18 % number of features
         % insert code for the BN here
         %###################
+        agn_ques = agent.formulate_question;
         
-        agn_ques = [1, randi([2, 10])];
         %###################
         if agn_ques(1) == 1
             sprintf("Agent asks: Does your character have %s?", string(initialGameboard(1, agn_ques(2))))
@@ -46,7 +46,12 @@ for i = 1:num_simulations
             winner = opponent.winner; 
             break
         end
-%         agent.updateBoard(agn_ques, opp_ans)
+        
+        [new_ag_char, new_ag_feat] = updateBoard(initialGameboard, ...
+            agent.ag_char_hypo, agent.ag_feat_hypo, agn_ques, opp_ans);
+        
+        agent.ag_char_hypo = new_ag_char;
+        agent.ag_feat_hypo = new_ag_feat;
         
         opp_ques = opponent.formulate_question;
         if opp_ques{1} == 1

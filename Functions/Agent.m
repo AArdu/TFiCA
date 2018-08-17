@@ -22,25 +22,20 @@ classdef Agent < handle
             end
             bnet = BN;
         end
-        
         %% update gameboard probabilities
-        
-        
-        %% generate question to opponent based on the remaining characters on the board
-        function question = formulate_question(obj)
-            % get probs per character
-            char_prob = obj.BNET.CPD(48:61);
-            char_prob  = cell2mat(char_prob);
-            feat_prob = obj.BNET.CPD(30:47);
-            feat_prob = cell2mat(feat_prob);
-            
-            if max(char_prob) > max(feat_prob)
-                
-            end
+        function updateBoard(obj, ques, ans)
             
         end
-        
-        %% generate question
+        %% generate question to opponent based on the remaining characters on the board
+        function question = formulate_question(obj)
+            % use HBS and MFE here
+            what = randi([1 2]);
+            if what == 1 % ask feature
+                question = [what randi([1 length(obj.allFeatures)])];
+            elseif what == 2
+                question = [what randi([1 length(obj.allCharacters)])];
+            end
+        end
         
         %%
     end
