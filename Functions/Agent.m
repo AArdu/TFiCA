@@ -18,7 +18,7 @@ classdef Agent < handle
         function bnet = updatePrev_games(obj, probs, BN)
             for i = 1:length(probs)
                 C = BN.names(BN.allNodes(1 + i));
-                BN.CPD{C} = tabular_CPD(BN, C, [probs(i) 1-probs(i)]);
+                BN.CPD{C} = tabular_CPD(BN, C, [probs(i)]);
             end
             bnet = BN;
         end

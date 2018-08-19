@@ -110,9 +110,10 @@ function [bnet, node_names] = create_BN()
     dag([PastHat PastGlasses], HatGlasses) = 1 ;
     dag([PastGlasses PastFacialHair], GlassesFacialHair) = 1 ;
 
-    % Node sizes
+    % Node sizes, 
     discrete_nodes = PastBrownHair:NumTotalNodes;
-    node_sizes = 2 * ones(1, NumTotalNodes - 1);
+    node_sizes = [1, ones(1, PastSadLooking - PastBlackHair), ...
+        2 * ones(1, GlassesFacialHair - BlackHairSadLooking), ones(1, Robert - BlackHair)];
 
     % Observed nodes
     onodes = [1:19 30:61];
