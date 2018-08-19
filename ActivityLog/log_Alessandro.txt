@@ -1,3 +1,6 @@
+I had a look to limid,
+but using them makes no sense because the decision nodes would be determined by the evidence in the board.
+
 # main.m
 
 adds paths for BN toolbox
@@ -36,4 +39,3 @@ formulates question to agent asking highest probaility candidate among features 
 # Functions/Agent.m
 
 nothing for now
-
