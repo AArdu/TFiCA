@@ -88,7 +88,7 @@ function [bnet, node_names] = create_BN()
 
     % Make BN
     NumTotalNodes = length(allNames);
-    dag = zeros(NumTotalNodes, NumTotalNodes);
+    dag = zeros(NumTotalNodes);
 
     % Define connections
     dag(charac_N, Alex:Robert) = 1;
@@ -116,7 +116,7 @@ function [bnet, node_names] = create_BN()
         2 * ones(1, GlassesFacialHair - BlackHairSadLooking), ones(1, Robert - BlackHair)];
 
     % Observed nodes
-    onodes = [PastBlackHair PastSadLooking, Alex:Robert];
+    onodes = [1:19 30:61];
     bnet = mk_bnet(dag, node_sizes, 'names', allNames, 'discrete', discrete_nodes);
     node_names = allNames;
 

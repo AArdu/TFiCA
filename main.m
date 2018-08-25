@@ -53,6 +53,8 @@ for i = 1:num_simulations
         agent.ag_char_hypo = new_ag_char;
         agent.ag_feat_hypo = new_ag_feat;
         
+        
+        
         opp_ques = opponent.formulate_question;
         if opp_ques{1} == 1
             sprintf("Opponent asks: Does your character have %s?", opp_ques{2})
@@ -84,6 +86,7 @@ for i = 1:num_simulations
             end
         end
         
+        agent.bnet = agent.update_CPTs();
         
         [new_op_char, new_op_feat] = updateBoard(initialGameboard, ...
             opponent.opp_char_hypo, opponent.opp_feat_hypo, opp_ques, agent_ans);

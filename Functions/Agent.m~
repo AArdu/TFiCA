@@ -18,29 +18,66 @@ classdef Agent < handle
         function bnet = updatePrev_games(obj, probs, BN)
             for i = 1:length(probs)
                 C = BN.names(BN.allNodes(1 + i));
-                BN.CPD{C} = tabular_CPD(BN, C, [probs(i) 1-probs(i)]);
+                BN.CPD{C} = tabular_CPD(BN, C, [probs(i)]);
             end
+            bnet = BN;
+        end
+        %% initialize CPT in cooccurences
+        function bnet = init_Cooc(obj)
+            % I treated them as independent: P(x ^ y) = P(x) * P(y)
+            BlackHairSadLooking = [0.5612244898 0.2244897959 0.1530612245 0.0612244898 0.4387755102 0.7755102041 0.8469387755 0.9387755102]; 
+            BrownHairBigMouth = [0.4489795918 0.1224489796 0.3367346939 0.09183673469 0.5510204082 0.8775510204 0.6632653061 0.9081632653];
+            BlondeHairRedCheek = [0.5612244898 0.2244897959 0.1530612245 0.0612244898 0.4387755102 0.7755102041 0.8469387755 0.9387755102];
+            ThickEyebrowRedHair = [0.4489795918 0.1224489796 0.3367346939 0.09183673469 0.5510204082 0.8775510204 0.6632653061 0.9081632653];
+            CurlyHairShortHair = [0.09183673469 0.5510204082 0.05102040816 0.306122449 0.9081632653 0.4489795918 0.9489795918 0.693877551];
+            MaleWavyHair = [0.2448979592 0.5510204082 0.05102040816 0.306122449 0.7551020408 0.4489795918 0.9489795918 0.693877551];
+            BrownEyesStraightHair = [0.1785714286 0.3214285714 0.1785714286 0.3214285714 0.8214285714 0.6785714286 0.8214285714 0.6785714286];
+            FaciaHairBigNose = [0.4591836735 0.2551020408 0.1836734694 0.1020408163 0.5408163265 0.7448979592 0.8163265306 0.8979591837];
+            HatGlasses = [0.612244898 0.2448979592 0.1020408163 0.04081632653 0.387755102 0.7551020408 0.8979591837 0.9591836735];
+            GlassesFacialHair = [0.5510204082 0.09183673469 0.306122449 0.05102040816 0.4489795918 0.9081632653 0.693877551 0.9489795918];
+            % TODO set CPTs
+            bnet = BN;
+        end
+        
+        %% initialize CPT in features
+        function bnet = init_Feat(obj)
+            % I treated them as independent: P(x ^ y) = P(x) * P(y)
+            BlackHair = 30;
+            BrownHair = 31;
+            BlondeHair = 32;
+            RedHair = 33;
+            ShortHair = 34;
+            Male = 35;
+            BrownEyes = 36;
+            FacialHair = 37;
+            Hat = 38;
+            Glasses = 39;
+            BigNose = 40;
+            StraightHair = 41;
+            WavyHair = 42;
+            CurlyHair = 43;
+            ThickEyebrow = 44;
+            RedCheek = 45;
+            BigMouth = 46;
+            SadLooking = 47;
+            % TODO set CPTs
             bnet = BN;
         end
         
         %% update gameboard probabilities
-        
-        
+        function new_bnt = update_CPTs(obj)
+            1 == 1;
+        end
         %% generate question to opponent based on the remaining characters on the board
         function question = formulate_question(obj)
-            % get probs per character
-            char_prob = obj.BNET.CPD(48:61);
-            char_prob  = cell2mat(char_prob);
-            feat_prob = obj.BNET.CPD(30:47);
-            feat_prob = cell2mat(feat_prob);
-            
-            if max(char_prob) > max(feat_prob)
-                
+            % use HBS and MFE here
+            what = randi([1 2]);
+            if what == 1 % ask feature
+                question = [what randi([1 length(obj.allFeatures)])];
+            elseif what == 2
+                question = [what randi([1 length(obj.allCharacters)])];
             end
-            
         end
-        
-        %% generate question
         
         %%
     end

@@ -23,17 +23,17 @@ function [bnet, node_names] = create_BN()
     PastBigMouth = 18;
     PastSadLooking = 19;
 
-    % Feature co-ocurrences nodes
-    BlackHairSadLooking = 20;
-    BrownHairBigMouth = 21;
-    BlondeHairRedCheek = 22 ;
-    ThickEyebrowRedHair = 23;
-    CurlyHairShortHair = 24;
-    MaleWavyHair = 25;
-    BrownEyesStraightHair = 26;
-    FaciaHairBigNose = 27;
-    HatGlasses = 28;
-    GlassesFacialHair = 29;
+    % Feature co-ocurrences nodes % intersections
+    BlackHairSadLooking = 20; % 1
+    BrownHairBigMouth = 21; % 1
+    BlondeHairRedCheek = 22 ; % 1
+    ThickEyebrowRedHair = 23; % 1
+    CurlyHairShortHair = 24; % 5
+    HatWavyHair = 25; % 2
+    BrownEyesStraightHair = 26; % 4
+    FaciaHairBigNose = 27; % 1
+    HatGlasses = 28; % 1
+    BrownEyesFacialHair = 29; % 3
 
     % Current features nodes
     BlackHair = 30;
@@ -78,7 +78,7 @@ function [bnet, node_names] = create_BN()
     'PastCurlyHair' ; 'PastThickEyebrow' ; 'PastRedCheek' ; 'PastBigMouth' ;...
     'PastSadLooking'; 'BlackHairSadLooking'; 'BrownHairBigMouth';...
     'BlondeHairRedCheek'; 'ThickEyebrowRedHair'; 'CurlyHairShortHair';...
-    'MaleWavyHair'; 'BrownEyesStraightHair'; 'FaciaHairBigNose'; 'HatGlasses'; 'GlassesFacialHair';...
+    'HatWavyHair'; 'BrownEyesStraightHair'; 'FaciaHairBigNose'; 'HatGlasses'; 'BrownEyesFacialHair';...
     'BlackHair' ; 'BrownHair' ; 'BlondeHair' ; 'RedHair' ; 'ShortHair' ;...
     'Male' ; 'BrownEyes' ; 'FacialHair' ; 'Hat' ; 'Glasses' ; 'BigNose' ; ...
     'StraightHair' ; 'WavyHair' ; 'CurlyHair' ; 'ThickEyebrow' ; 'RedCheek' ;...
@@ -96,28 +96,30 @@ function [bnet, node_names] = create_BN()
     dag(Alex:Robert, BlackHair:SadLooking) = 1;
 
     % connect co-occurrencies
-    dag(Alex:Robert, BlackHairSadLooking:GlassesFacialHair) = 1;
-    dag(BlackHairSadLooking:GlassesFacialHair, BlackHair:SadLooking) = 1;
+    % NOTE probability of character board does not inflience the co-occurences
+    % dag(Alex:Robert, BlackHairSadLooking:BrownEyesFacialHair) = 1;
+    dag(BlackHairSadLooking:BrownEyesFacialHair, BlackHair:SadLooking) = 1;
 
     dag([PastBlackHair PastSadLooking], BlackHairSadLooking) = 1;
     dag([PastBrownHair PastBigMouth], BrownHairBigMouth) = 1;
     dag([PastBlondeHair PastRedCheek], BlondeHairRedCheek) = 1 ;
     dag([PastThickEyebrow PastRedHair], ThickEyebrowRedHair) = 1;
     dag([PastCurlyHair PastShortHair], CurlyHairShortHair) = 1 ;
-    dag([PastMale PastWavyHair], MaleWavyHair) = 1 ;
+    dag([PastHat PastWavyHair], HatWavyHair) = 1 ;
     dag([PastBrownEyes PastStraightHair], BrownEyesStraightHair) = 1 ;
     dag([PastFacialHair PastBigNose], FaciaHairBigNose) = 1 ;
     dag([PastHat PastGlasses], HatGlasses) = 1 ;
-    dag([PastGlasses PastFacialHair], GlassesFacialHair) = 1 ;
+    dag([PastBrownEyes PastFacialHair], BrownEyesFacialHair) = 1 ;
 
-    % Node sizes, 
-    discrete_nodes = PastBrownHair:NumTotalNodes;
+    % Node sizes,
+    discrete_nodes = PastBlackHair:NumTotalNodes;
     node_sizes = [1, ones(1, PastSadLooking - PastBlackHair), ...
-        2 * ones(1, GlassesFacialHair - BlackHairSadLooking), ones(1, Robert - BlackHair)];
+        2 * ones(1, BrownEyesFacialHair - BlackHairSadLooking), ones(1, Robert - BlackHair)];
 
     % Observed nodes
-    onodes = [1:19 30:61];
-    bnet = mk_bnet(dag, node_sizes, 'names', allNames, 'discrete', discrete_nodes);
+    onodes = [PastBlackHair PastSadLooking, Alex:Robert];
+    bnet = mk_bnet(dag, node_sizes, 'names', allNames, 'discrete', discrete_nodes, ...
+        'observed', onodes);
     node_names = allNames;
 
 % uncomment these things at a later stage:
