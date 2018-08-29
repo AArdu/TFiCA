@@ -14,7 +14,7 @@ function [agent, op] = initializePlayers(inBoard)
     op.opp_char_hypo = inBoard(2:end,1);
     
     ag = Agent;
-    [BN, node_names]= create_BN;
+    [BN, node_names]= create_BN_test;
     ag.bnet = BN;
     ag.bnet.allNodes = string(node_names);
     ag.allFeatures = allFeatures;

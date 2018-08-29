@@ -42,7 +42,7 @@ function [bnet, node_names] = create_BN_test()
     BlondeHairRedCheek = 35 ; % 1
     ThickEyebrowRedHair = 36; % 1
     CurlyHairShortHair = 37; % 5
-    HatWavyHair = 38; % 2
+    MaleWavyHair = 38; % 2
     BrownEyesStraightHair = 39; % 4
     FacialHairBigNose = 40; % 1
     HatGlasses = 41; % 1
@@ -80,7 +80,7 @@ function [bnet, node_names] = create_BN_test()
     'PastCurlyHair' ; 'PastThickEyebrow' ; 'PastRedCheek' ; 'PastBigMouth' ;...
     'PastSadLooking'; 'BlackHairSadLooking'; 'BrownHairBigMouth';...
     'BlondeHairRedCheek'; 'ThickEyebrowRedHair'; 'CurlyHairShortHair';...
-    'HatWavyHair'; 'BrownEyesStraightHair'; 'FacialHairBigNose'; 'HatGlasses'; 'BrownEyesFacialHair';...
+    'MaleWavyHair'; 'BrownEyesStraightHair'; 'FacialHairBigNose'; 'HatGlasses'; 'BrownEyesFacialHair';...
     'BlackHair' ; 'BrownHair' ; 'BlondeHair' ; 'RedHair' ; 'ShortHair' ;...
     'Male' ; 'BrownEyes' ; 'FacialHair' ; 'Hat' ; 'Glasses' ; 'BigNose' ; ...
     'StraightHair' ; 'WavyHair' ; 'CurlyHair' ; 'ThickEyebrow' ; 'RedCheek' ;...
@@ -105,7 +105,7 @@ function [bnet, node_names] = create_BN_test()
     dag([PastBlondeHair PastRedCheek], BlondeHairRedCheek) = 1 ;
     dag([PastThickEyebrow PastRedHair], ThickEyebrowRedHair) = 1;
     dag([PastCurlyHair PastShortHair], CurlyHairShortHair) = 1 ;
-    dag([PastHat PastWavyHair], HatWavyHair) = 1 ;
+    dag([PastMale PastWavyHair], MaleWavyHair) = 1 ;
     dag([PastBrownEyes PastStraightHair], BrownEyesStraightHair) = 1 ;
     dag([PastFacialHair PastBigNose], FacialHairBigNose) = 1 ;
     dag([PastHat PastGlasses], HatGlasses) = 1 ;
@@ -116,7 +116,7 @@ function [bnet, node_names] = create_BN_test()
     dag(BrownHairBigMouth, [BrownHair,BigMouth])=1;
     dag(ThickEyebrowRedHair, [ThickEyebrow, RedHair])=1;
     dag(CurlyHairShortHair, [CurlyHair, ShortHair])=1;
-    dag(HatWavyHair, [Hat, WavyHair])=1;
+    dag(MaleWavyHair, [Male, WavyHair])=1;
     dag(BrownEyesStraightHair, [BrownEyes, StraightHair])=1;
     dag(FacialHairBigNose, [FacialHair, BigNose])=1;
     dag(HatGlasses, [Hat, Glasses])=1;
@@ -137,43 +137,73 @@ function [bnet, node_names] = create_BN_test()
     node_names = allNames;
     
     %%%%%% Setting the probabilities for the characters %%%%%%%%%%%%%%
-    bnet.CPD{Alex} = tabular_CPD(bnet, Alex, [13/14, 1/14 ]);
-    bnet.CPD{Alfred} = tabular_CPD(bnet, Alfred, [13/14, 1/14 ]);
-    bnet.CPD{Anita} = tabular_CPD(bnet, Anita, [13/14, 1/14 ]);
-    bnet.CPD{Anne} = tabular_CPD(bnet, Anne, [13/14, 1/14 ]);
-    bnet.CPD{Bernard} = tabular_CPD(bnet, Bernard, [13/14, 1/14 ]);
-    bnet.CPD{Charles} = tabular_CPD(bnet, Charles, [13/14, 1/14 ]);
-    bnet.CPD{Claire} = tabular_CPD(bnet, Claire, [13/14, 1/14 ]);
-    bnet.CPD{Eric} = tabular_CPD(bnet, Eric, [13/14, 1/14 ]);
-    bnet.CPD{Frans} = tabular_CPD(bnet, Frans, [13/14, 1/14 ]);
-    bnet.CPD{Joe} = tabular_CPD(bnet, Joe, [13/14, 1/14 ]);
-    bnet.CPD{Maria} = tabular_CPD(bnet, Maria, [13/14, 1/14 ]);
-    bnet.CPD{Max} = tabular_CPD(bnet, Max, [13/14, 1/14 ]);
-    bnet.CPD{Philip} = tabular_CPD(bnet, Philip, [13/14, 1/14 ]);
-    bnet.CPD{Robert} = tabular_CPD(bnet, Robert, [13/14, 1/14 ]);
+    bnet.CPD{Alex} = tabular_CPD(bnet, Alex, [0, 1 ]);
+    bnet.CPD{Alfred} = tabular_CPD(bnet, Alfred, [0, 1 ]);
+    bnet.CPD{Anita} = tabular_CPD(bnet, Anita, [0, 1 ]);
+    bnet.CPD{Anne} = tabular_CPD(bnet, Anne, [0, 1 ]);
+    bnet.CPD{Bernard} = tabular_CPD(bnet, Bernard, [0, 1 ]);
+    bnet.CPD{Charles} = tabular_CPD(bnet, Charles, [0, 1 ]);
+    bnet.CPD{Claire} = tabular_CPD(bnet, Claire, [0, 1 ]);
+    bnet.CPD{Eric} = tabular_CPD(bnet, Eric, [0, 1 ]);
+    bnet.CPD{Frans} = tabular_CPD(bnet, Frans, [0, 1 ]);
+    bnet.CPD{Joe} = tabular_CPD(bnet, Joe, [0, 1 ]);
+    bnet.CPD{Maria} = tabular_CPD(bnet, Maria, [0, 1 ]);
+    bnet.CPD{Max} = tabular_CPD(bnet, Max, [0, 1 ]);
+    bnet.CPD{Philip} = tabular_CPD(bnet, Philip, [0, 1 ]);
+    bnet.CPD{Robert} = tabular_CPD(bnet, Robert, [0, 1 ]);
     
      %%%%%% Setting the probabilities for the past features %%%%%%%%%%%%%%
      %%%%%% SHould be changed to some other values
-    bnet.CPD{PastBlackHair} = tabular_CPD(bnet, PastBlackHair, [13/14, 1/14 ]);
-    bnet.CPD{PastBrownHair} = tabular_CPD(bnet, PastBrownHair, [13/14, 1/14 ]);
-    bnet.CPD{PastBlondeHair} = tabular_CPD(bnet, PastBlondeHair, [13/14, 1/14 ]);
-    bnet.CPD{PastRedHair} = tabular_CPD(bnet, PastRedHair, [13/14, 1/14 ]);
-    bnet.CPD{PastShortHair} = tabular_CPD(bnet, PastShortHair, [13/14, 1/14 ]);
-    bnet.CPD{PastMale} = tabular_CPD(bnet, PastMale, [13/14, 1/14 ]);
-    bnet.CPD{PastBrownEyes} = tabular_CPD(bnet, PastBrownEyes, [13/14, 1/14 ]);
-    bnet.CPD{PastFacialHair} = tabular_CPD(bnet, PastFacialHair, [13/14, 1/14 ]);
-    bnet.CPD{PastHat} = tabular_CPD(bnet, PastHat, [13/14, 1/14 ]);
-    bnet.CPD{PastGlasses} = tabular_CPD(bnet, PastGlasses, [13/14, 1/14 ]);
-    bnet.CPD{PastBigNose} = tabular_CPD(bnet, PastBigNose, [13/14, 1/14 ]);
-    bnet.CPD{PastStraightHair} = tabular_CPD(bnet, PastStraightHair, [13/14, 1/14 ]);
-    bnet.CPD{PastWavyHair} = tabular_CPD(bnet, PastWavyHair, [13/14, 1/14 ]);
-    bnet.CPD{PastCurlyHair} = tabular_CPD(bnet, PastCurlyHair, [13/14, 1/14 ]);
-    bnet.CPD{PastThickEyebrow} = tabular_CPD(bnet, PastThickEyebrow, [13/14, 1/14 ]);
-    bnet.CPD{PastRedCheek} = tabular_CPD(bnet, PastRedCheek, [13/14, 1/14 ]);
-    bnet.CPD{PastBigMouth} = tabular_CPD(bnet, PastBigMouth, [13/14, 1/14 ]);
-    bnet.CPD{PastSadLooking} = tabular_CPD(bnet, PastSadLooking, [13/14, 1/14 ]);
+    bnet.CPD{PastBlackHair} = tabular_CPD(bnet, PastBlackHair, [0.7142857143, 0.2857142857 ]); 
+    bnet.CPD{PastBrownHair} = tabular_CPD(bnet, PastBrownHair, [0.7857142857, 0.2142857143 ]);
+    bnet.CPD{PastBlondeHair} = tabular_CPD(bnet, PastBlondeHair, [0.7142857143, 0.2857142857 ]);
+    bnet.CPD{PastRedHair} = tabular_CPD(bnet, PastRedHair, [0.7857142857, 0.2142857143 ]);
+    bnet.CPD{PastShortHair} = tabular_CPD(bnet, PastShortHair, [0.1428571429, 0.8571428571 ]);
+    bnet.CPD{PastMale} = tabular_CPD(bnet, PastMale, [0.2857142857, 0.7142857143]);
+    bnet.CPD{PastBrownEyes} = tabular_CPD(bnet, PastBrownEyes, [0.3571428571, 0.6428571429 ]);
+    bnet.CPD{PastFacialHair} = tabular_CPD(bnet, PastFacialHair, [0.6428571429, 0.3571428571 ]);
+    bnet.CPD{PastHat} = tabular_CPD(bnet, PastHat, [0.7142857143, 0.2857142857 ]);
+    bnet.CPD{PastGlasses} = tabular_CPD(bnet, PastGlasses, [0.8571428571, 0.1428571429 ]);
+    bnet.CPD{PastBigNose} = tabular_CPD(bnet, PastBigNose, [0.7142857143, 0.2857142857 ]);
+    bnet.CPD{PastStraightHair} = tabular_CPD(bnet, PastStraightHair, [1/2, 1/2 ]);
+    bnet.CPD{PastWavyHair} = tabular_CPD(bnet, PastWavyHair, [0.8571428571, 0.1428571429 ]);
+    bnet.CPD{PastCurlyHair} = tabular_CPD(bnet, PastCurlyHair, [0.6428571429, 0.3571428571 ]);
+    bnet.CPD{PastThickEyebrow} = tabular_CPD(bnet, PastThickEyebrow, [0.8571428571, 0.1428571429]);
+    bnet.CPD{PastRedCheek} = tabular_CPD(bnet, PastRedCheek, [0.7857142857, 0.2142857143]);
+    bnet.CPD{PastBigMouth} = tabular_CPD(bnet, PastBigMouth, [0.5714285714, 0.4285714286]);
+    bnet.CPD{PastSadLooking} = tabular_CPD(bnet, PastSadLooking, [0.7857142857, 0.2142857143]);
         
-    
+    %%%%Setting the probabilities for the combinations of past features
+    %Probabilities of this correspond to past occurances right? yes, combined with characters =>it is not combined with the characters here.
+    bnet.CPD{BlackHairSadLooking} = tabular_CPD(bnet, BlackHairSadLooking, [0.5612244898	0.2244897959	0.1530612245	0.0612244898	0.4387755102	0.7755102041	0.8469387755	0.9387755102]);  
+    bnet.CPD{BrownHairBigMouth} = tabular_CPD(bnet, BrownHairBigMouth, [0.4489795918	0.1224489796	0.3367346939	0.09183673469	0.5510204082	0.8775510204	0.6632653061	0.9081632653]);  
+    bnet.CPD{BlondeHairRedCheek} = tabular_CPD(bnet, BlondeHairRedCheek, [0.5612244898	0.2244897959	0.1530612245	0.0612244898	0.4387755102	0.7755102041	0.8469387755	0.9387755102]);  
+    bnet.CPD{ThickEyebrowRedHair} = tabular_CPD(bnet, ThickEyebrowRedHair, [0.4489795918	0.1224489796	0.3367346939	0.09183673469	0.5510204082	0.8775510204	0.6632653061	0.9081632653]);  
+    bnet.CPD{CurlyHairShortHair} = tabular_CPD(bnet, CurlyHairShortHair, [0.09183673469	0.5510204082	0.05102040816	0.306122449	0.9081632653	0.4489795918	0.9489795918	0.693877551]);  
+    bnet.CPD{MaleWavyHair} = tabular_CPD(bnet, MaleWavyHair, [0.2448979592	0.5510204082	0.05102040816	0.306122449	0.7551020408	0.4489795918	0.9489795918	0.693877551]);  
+    bnet.CPD{BrownEyesStraightHair} = tabular_CPD(bnet, BrownEyesStraightHair, [0.1785714286	0.3214285714	0.1785714286	0.3214285714	0.8214285714	0.6785714286	0.8214285714	0.6785714286 ]);  
+    bnet.CPD{FacialHairBigNose} = tabular_CPD(bnet, FacialHairBigNose, [0.4591836735	0.2551020408	0.1836734694	0.1020408163	0.5408163265	0.7448979592	0.8163265306	0.8979591837 ]);  
+    bnet.CPD{HatGlasses} = tabular_CPD(bnet, HatGlasses, [0.612244898	0.2448979592	0.1020408163	0.04081632653	0.387755102	0.7551020408	0.8979591837	0.9591836735]);  
+    bnet.CPD{BrownEyesFacialHair} = tabular_CPD(bnet, BrownEyesFacialHair, [0.2295918367	0.4132653061	0.1275510204	0.2295918367	0.7704081633	0.5867346939	0.8724489796	0.7704081633]);  
 
-end
-     
+
+    bnet.CPD{BlackHair} = tabular_CPD(bnet, BlackHair, [3/4, 1/4 ]); 
+    bnet.CPD{BrownHair} = tabular_CPD(bnet, BrownHair, [3/4, 1/4 ]); 
+    bnet.CPD{BlondeHair} = tabular_CPD(bnet, BlondeHair, [3/4, 1/4 ]); 
+    bnet.CPD{RedHair} = tabular_CPD(bnet, RedHair, [3/4, 1/4 ]); 
+    bnet.CPD{ShortHair} = tabular_CPD(bnet, ShortHair, [3/4, 1/4 ]); 
+    bnet.CPD{Male} = tabular_CPD(bnet, Male, [3/4, 1/4 ]); 
+    bnet.CPD{BrownEyes} = tabular_CPD(bnet, BrownEyes, [3/4, 1/4 ]); 
+    bnet.CPD{FacialHair} = tabular_CPD(bnet, FacialHair, [3/4, 1/4 ]); 
+    bnet.CPD{Hat} = tabular_CPD(bnet, Hat, [3/4, 1/4 ]); 
+    bnet.CPD{Glasses} = tabular_CPD(bnet, Glasses, [3/4, 1/4 ]); 
+    bnet.CPD{BigNose} = tabular_CPD(bnet, BigNose, [3/4, 1/4 ]); 
+    bnet.CPD{StraightHair} = tabular_CPD(bnet, StraightHair, [3/4, 1/4 ]); 
+    bnet.CPD{WavyHair} = tabular_CPD(bnet, WavyHair, [3/4, 1/4 ]); 
+    bnet.CPD{CurlyHair} = tabular_CPD(bnet, CurlyHair, [3/4, 1/4 ]); 
+    bnet.CPD{ThickEyebrow} = tabular_CPD(bnet, ThickEyebrow, [3/4, 1/4 ]); 
+    bnet.CPD{RedCheek} = tabular_CPD(bnet, RedCheek, [3/4, 1/4 ]); 
+    bnet.CPD{BigMouth} = tabular_CPD(bnet, BigMouth, [3/4, 1/4 ]); 
+    bnet.CPD{SadLooking} = tabular_CPD(bnet, SadLooking, [3/4, 1/4 ]); 
+		
+ end

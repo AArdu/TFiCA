@@ -16,10 +16,10 @@ classdef Agent < handle
     methods
         %% Update nodes with previous choices of opponent
         function bnet = updatePrev_games(obj, probs, BN)
-            for i = 1:length(probs)
-                C = BN.names(BN.allNodes(1 + i));
-                BN.CPD{C} = tabular_CPD(BN, C, [probs(i)]);
-            end
+%             for i = 1:length(probs)
+%                 C = BN.names(BN.allNodes(1 + i));
+%                 BN.CPD{C} = tabular_CPD(BN, C, [probs(i)]);
+%             end
             bnet = BN;
         end
         %% initialize CPT in cooccurences
@@ -91,7 +91,7 @@ classdef Agent < handle
         
         %% update gameboard probabilities
         function new_bnt = update_CPTs(obj)
-            1 == 1;
+            new_bnt = [];
         end
         %% generate question to opponent based on the remaining characters on the board
         function question = formulate_question(obj)
