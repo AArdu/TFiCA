@@ -129,9 +129,10 @@ function [bnet, node_names] = create_BN_test()
     node_sizes_characters = 2 * ones(1,14);
     %node_sizes = [node_sizes_characters, ones(1, PastSadLooking - PastBlackHair), ...
     %    2 * ones(1, BrownEyesFacialHair - BlackHairSadLooking), ones(1, Robert - BlackHair)];
-    node_sizes = 2*ones(1,60);
+    node_sizes = [2*ones(1, 42), ones(1, 18) * 2^15];
     % Observed nodes
     onodes = [Alex:Robert]; %Since all the characters are observed right>? this changes at a later stage
+    
     bnet = mk_bnet(dag, node_sizes, 'names', allNames, 'discrete', discrete_nodes, ...
         'observed', onodes);
     node_names = allNames;

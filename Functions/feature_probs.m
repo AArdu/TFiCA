@@ -1,4 +1,6 @@
 function feat_CPT_dict = feature_probs
+    % NB I'm not sure of the math for these probabilities
+
     if exist('Functions/ready_CPTs.mat', 'file') ~= 2
         load("prob_for_features.mat")
 
@@ -13,7 +15,7 @@ function feat_CPT_dict = feature_probs
             p_combination = [];
             for p = 1:length(combinations)
                 feat = [];
-                comb = combinations(p, :);
+                comb = combinations(p, 1:-1:1);
                 for b = 1:length(comb) - 1
                     % the positions of the characters are the first 14 in the
                     % binray number. 
