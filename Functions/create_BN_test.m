@@ -114,6 +114,7 @@ function [bnet, node_names] = create_BN_test()
     %connecting the co-occurences to the features
     dag(BlackHairSadLooking, [BlackHair,SadLooking]) = 1;
     dag(BrownHairBigMouth, [BrownHair,BigMouth])=1;
+    dag(BlondeHairRedCheek, [BlondeHair, RedCheek)=1;
     dag(ThickEyebrowRedHair, [ThickEyebrow, RedHair])=1;
     dag(CurlyHairShortHair, [CurlyHair, ShortHair])=1;
     dag(MaleWavyHair, [Male, WavyHair])=1;
