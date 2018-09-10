@@ -45,16 +45,16 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
   sadlookingfalse         = find(featlist(1:end, 18) == 0);
 
   % CPTs for co-occurences
-  BlackHairSadLookingTab    = [0.5612244898	0.2244897959	0.1530612245	0.0612244898	0.4387755102	0.7755102041	0.8469387755	0.9387755102];
-  BrownHairBigMouthTab      = [0.4489795918	0.1224489796	0.3367346939	0.09183673469	0.5510204082	0.8775510204	0.6632653061	0.9081632653];
-  BlondeHairRedCheekTab     = [0.5612244898	0.2244897959	0.1530612245	0.0612244898	0.4387755102	0.7755102041	0.8469387755	0.9387755102];
-  ThickEyebrowRedHairTab    = [0.4489795918	0.1224489796	0.3367346939	0.09183673469	0.5510204082	0.8775510204	0.6632653061	0.9081632653];
-  CurlyHairShortHairTab     = [0.09183673469 0.5510204082	0.05102040816	0.306122449	0.9081632653	0.4489795918	0.9489795918	0.693877551];
-  MaleWavyHairTab           = [0.2448979592	0.5510204082	0.05102040816	0.306122449	0.7551020408	0.4489795918	0.9489795918	0.693877551];
-  BrownEyesStraightHairTab  = [0.1785714286	0.3214285714	0.1785714286	0.3214285714	0.8214285714	0.6785714286	0.8214285714	0.6785714286];
-  FacialHairBigNoseTab      = [0.4591836735	0.2551020408	0.1836734694	0.1020408163	0.5408163265	0.7448979592	0.8163265306	0.8979591837];
-  HatGlassesTab             = [0.612244898	0.2448979592	0.1020408163	0.04081632653	0.387755102	0.7551020408	0.8979591837	0.9591836735];
-  BrownEyesFacialHairTab    = [0.2295918367	0.4132653061	0.1275510204	0.2295918367	0.7704081633	0.5867346939	0.8724489796	0.7704081633];
+  BlackHairSadLookingTab    = [0.5612244898	0.2244897959 0.1530612245 0.0612244898	0.4387755102	0.7755102041	0.8469387755	0.9387755102];
+  BrownHairBigMouthTab      = [0.4489795918	0.1224489796 0.3367346939 0.09183673469	0.5510204082	0.8775510204	0.6632653061	0.9081632653];
+  BlondeHairRedCheekTab     = [0.5612244898	0.2244897959 0.1530612245 0.0612244898	0.4387755102	0.7755102041	0.8469387755	0.9387755102];
+  ThickEyebrowRedHairTab    = [0.4489795918	0.1224489796 0.3367346939 0.09183673469	0.5510204082	0.8775510204	0.6632653061	0.9081632653];
+  CurlyHairShortHairTab     = [0.09183673469 0.5510204082 0.05102040816	0.306122449	0.9081632653 0.4489795918 0.9489795918 0.693877551];
+  MaleWavyHairTab           = [0.2448979592	0.5510204082 0.05102040816 0.306122449 0.7551020408	0.4489795918 0.9489795918 0.693877551];
+  BrownEyesStraightHairTab  = [0.1785714286	0.3214285714 0.1785714286 0.3214285714 0.8214285714	0.6785714286 0.8214285714 0.6785714286];
+  FacialHairBigNoseTab      = [0.4591836735	0.2551020408 0.1836734694 0.1020408163 0.5408163265	0.7448979592 0.8163265306 0.8979591837];
+  HatGlassesTab             = [0.612244898	0.2448979592 0.1020408163 0.04081632653 0.387755102	0.7551020408 0.8979591837 0.9591836735];
+  BrownEyesFacialHairTab    = [0.2295918367	0.4132653061 0.1275510204 0.2295918367 0.7704081633	0.5867346939 0.8724489796 0.7704081633];
 
   AllTabs = [BlackHairSadLookingTab, BrownHairBigMouthTab, BlondeHairRedCheekTab, ...
              ThickEyebrowRedHairTab, CurlyHairShortHairTab, MaleWavyHairTab, ...
@@ -129,12 +129,12 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
   [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty();
 
   chars_F_F_F(calc_cpts(thickeyebrowsfalse, redhairfalse)) = ThickEyebrowRedHairTab(1);
-  chars_T_F_F(calc_cpts(thickeyebrowstrue, redhairfalse))  = ThickEyebrowRedHairTab(2);
-  chars_F_T_F(calc_cpts(thickeyebrowsfalse, redhairtrue))  = ThickEyebrowRedHairTab(3);
+  chars_T_F_F(calc_cpts(thickeyebrowsfalse, redhairtrue))  = ThickEyebrowRedHairTab(2);
+  chars_F_T_F(calc_cpts(thickeyebrowstrue, redhairfalse))  = ThickEyebrowRedHairTab(3);
   chars_T_T_F(calc_cpts(thickeyebrowstrue, redhairtrue))   = ThickEyebrowRedHairTab(4);
   chars_F_F_T(calc_cpts(thickeyebrowsfalse, redhairfalse)) = ThickEyebrowRedHairTab(5);
-  chars_T_F_T(calc_cpts(thickeyebrowstrue, redhairfalse))  = ThickEyebrowRedHairTab(6);
-  chars_F_T_T(calc_cpts(thickeyebrowsfalse, redhairtrue))  = ThickEyebrowRedHairTab(7);
+  chars_T_F_T(calc_cpts(thickeyebrowsfalse, redhairtrue))  = ThickEyebrowRedHairTab(6);
+  chars_F_T_T(calc_cpts(thickeyebrowstrue, redhairfalse))  = ThickEyebrowRedHairTab(7);
   chars_T_T_T(calc_cpts(thickeyebrowstrue, redhairtrue))   = ThickEyebrowRedHairTab(8);
   ThickEyebrowRedHairCPT = [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T]*(1/14);
 
@@ -142,12 +142,12 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
   [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty();
 
   chars_F_F_F(calc_cpts(curlyhairfalse, shorthairfalse))   = CurlyHairShortHairTab(1);
-  chars_T_F_F(calc_cpts(curlyhairtrue, shorthairfalse))    = CurlyHairShortHairTab(2);
-  chars_F_T_F(calc_cpts(curlyhairfalse, shorthairtrue))    = CurlyHairShortHairTab(3);
+  chars_T_F_F(calc_cpts(curlyhairfalse, shorthairtrue))    = CurlyHairShortHairTab(2);
+  chars_F_T_F(calc_cpts(curlyhairtrue, shorthairfalse))    = CurlyHairShortHairTab(3);
   chars_T_T_F(calc_cpts(curlyhairtrue, shorthairtrue))     = CurlyHairShortHairTab(4);
   chars_F_F_T(calc_cpts(curlyhairfalse, shorthairfalse))   = CurlyHairShortHairTab(5);
-  chars_T_F_T(calc_cpts(curlyhairtrue, shorthairfalse))    = CurlyHairShortHairTab(6);
-  chars_F_T_T(calc_cpts(curlyhairfalse, shorthairtrue))    = CurlyHairShortHairTab(7);
+  chars_T_F_T(calc_cpts(curlyhairfalse, shorthairtrue))    = CurlyHairShortHairTab(6);
+  chars_F_T_T(calc_cpts(curlyhairtrue, shorthairfalse))    = CurlyHairShortHairTab(7);
   chars_T_T_T(calc_cpts(curlyhairtrue, shorthairtrue))     = CurlyHairShortHairTab(8);
   CurlyHairShortHairCPT =[chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T]*(1/14);
 
