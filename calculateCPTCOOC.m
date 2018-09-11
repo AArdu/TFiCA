@@ -75,14 +75,14 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
   % create empty tables
   function [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, ...
             chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty()
-    chars_F_F_F = ones(1,14);
-    chars_T_F_F = ones(1,14);
-    chars_F_T_F = ones(1,14);
-    chars_T_T_F = ones(1,14);
-    chars_F_F_T = zeros(1,14);
-    chars_T_F_T = zeros(1,14);
-    chars_F_T_T = zeros(1,14);
-    chars_T_T_T = zeros(1,14);
+    chars_F_F_F = zeros(1,14);
+    chars_T_F_F = zeros(1,14);
+    chars_F_T_F = zeros(1,14);
+    chars_T_T_F = zeros(1,14);
+    chars_F_F_T = ones(1,14);
+    chars_T_F_T = ones(1,14);
+    chars_F_T_T = ones(1,14);
+    chars_T_T_T = ones(1,14);
   end
 
 
