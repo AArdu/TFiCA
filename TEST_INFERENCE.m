@@ -2,9 +2,9 @@ clear all, clc
 addpath('./Functions')
 load('./Data/initialGameboard.mat')
 
-cd bnt-master
+%cd bnt-master
 addpath(genpathKPM(pwd))
-cd ../
+%cd ../
 
 allFeatures = initialGameboard(1,2:end);
 allCharacters = initialGameboard(2:end,1);
