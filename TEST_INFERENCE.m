@@ -2,9 +2,9 @@ clear all, clc
 addpath('./Functions')
 load('./Data/initialGameboard.mat')
 
-cd bnt-master
+%cd bnt-master
 addpath(genpathKPM(pwd))
-cd ../
+%cd ../
 
 allFeatures = initialGameboard(1,2:end);
 allCharacters = initialGameboard(2:end,1);
@@ -63,9 +63,9 @@ evidence(29) = {[]}; % BrownEyesFacialHair
 marg = marginal_nodes(engine, 1, 1);
 marg.T
 [max, ch] = max(marg.T);
-text = sprintf('MAX: %f, %f',[max, ch])
+text = sprintf('MAX: %f, %d',[max, ch])
 [min, ch] = min(marg.T);
-text = sprintf('MIN: %f, %f',[max, ch])
+text = sprintf('MIN: %f, %d',[min, ch])
   
 % text = sprintf('Alex %f \n Alfred %f \n Anita %f \n Anne %f \n Bernard %f \n Charles %f \n' ...
 %                'Claire %f \n Eric %f \n Frans %f \n Joe %f \n Maria %f \n Max %f \n Philip %f \n Robert %f', marg.T)
