@@ -58,14 +58,28 @@ evidence(27) = {[]}; % FacialHairBigNose
 evidence(28) = {[]}; % HatGlasses
 evidence(29) = {[]}; % BrownEyesFacialHair
 
+% Uncomment when features are ready
+% evidence(30) = {[]}; % Hair
+% evidence(31) = {[]}; % HairStyle
+% evidence(32) = {[]}; % Sex
+% evidence(33) = {[]}; % BrownEyes
+% evidence(34) = {[]}; % FacialHair
+% evidence(35) = {[]}; % Hat
+% evidence(36) = {[]}; % Glasses
+% evidence(37) = {[]}; % NoseSize
+% evidence(38) = {[]}; % HairTexture
+% evidence(39) = {[]}; % EyebrowThickness
+% evidence(40) = {[]}; % RedCheek
+% evidence(41) = {[]}; % MouthSize
+% evidence(42) = {[]}; % SadLooking
 
 [engine, loglike] = enter_evidence(ag.BN_engine, evidence);
 marg = marginal_nodes(engine, 1, 1);
 marg.T
 [max, ch] = max(marg.T);
-text = sprintf('MAX: %f, %f',[max, ch])
+text = sprintf('MAX: %f, %d',[max, ch])
 [min, ch] = min(marg.T);
-text = sprintf('MIN: %f, %f',[max, ch])
+text = sprintf('MIN: %f, %d',[min, ch])
   
 % text = sprintf('Alex %f \n Alfred %f \n Anita %f \n Anne %f \n Bernard %f \n Charles %f \n' ...
 %                'Claire %f \n Eric %f \n Frans %f \n Joe %f \n Maria %f \n Max %f \n Philip %f \n Robert %f', marg.T)
