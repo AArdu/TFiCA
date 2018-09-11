@@ -28,38 +28,47 @@ ag.BN_engine = jtree_inf_engine(ag.bnet);
 
 evidence = cell(1, length(ag.bnet.node_sizes));
 
-evidence(1) = {[]}; % characters
-evidence(2) = {[]}; %
-evidence(3) = {[]}; %
-evidence(4) = {[]}; %
-evidence(5) = {[]}; %
-evidence(6) = {[]}; %
-evidence(7) = {[]}; %
-evidence(8) = {[]}; %
-evidence(9) = {[]}; %
-evidence(10) = {[]}; %
-evidence(11) = {[]}; %
-evidence(12) = {[]}; %
-evidence(13) = {[]}; %
-evidence(14) = {[]}; %
-evidence(15) = {[]}; %
-evidence(16) = {[]}; %
-evidence(17) = {[]}; %
-evidence(18) = {[]}; %
-evidence(19) = {[]}; %
-evidence(20) = {[]}; %
-evidence(21) = {[]}; %
-evidence(22) = {[]}; %
-evidence(23) = {[]}; %
-evidence(24) = {[]}; %
-evidence(25) = {[]}; %
-evidence(26) = {[]}; %
-evidence(27) = {[]}; %
-evidence(28) = {[]}; %
-evidence(29) = {2}; %
+evidence(1) = {[]}; % Characters
+evidence(2) = {[]}; % PastBlackHair
+evidence(3) = {[]}; % PastBrownHair
+evidence(4) = {[]}; % PastBlondeHair
+evidence(5) = {[]}; % PastRedHair
+evidence(6) = {[]}; % PastShortHair
+evidence(7) = {[]}; % PastMale
+evidence(8) = {[]}; % PastBrownEyes
+evidence(9) = {[]}; % PastFacialHair
+evidence(10) = {[]}; % PastHat
+evidence(11) = {[]}; % PastGlasses
+evidence(12) = {[]}; % PastBigNose
+evidence(13) = {[]}; % PastStraightHair
+evidence(14) = {[]}; % PastWavyHair
+evidence(15) = {[]}; % PastCurlyHair
+evidence(16) = {[]}; % PastThickEyebrow
+evidence(17) = {[]}; % PastRedCheek
+evidence(18) = {[]}; % PastBigMouth
+evidence(19) = {[]}; % PastSadLooking
+evidence(20) = {[]}; % BlackHairSadLooking
+evidence(21) = {[]}; % BrownHairBigMouth
+evidence(22) = {[]}; % BlondeHairRedCheek
+evidence(23) = {[]}; % ThickEyebrowRedHair
+evidence(24) = {[]}; % CurlyHairShortHair
+evidence(25) = {[]}; % MaleWavyHair
+evidence(26) = {[]}; % BrownEyesStraightHair
+evidence(27) = {[]}; % FacialHairBigNose
+evidence(28) = {[]}; % HatGlasses
+evidence(29) = {[]}; % BrownEyesFacialHair
 
 
 [engine, loglike] = enter_evidence(ag.BN_engine, evidence);
-marg = marginal_nodes(engine, [8 9]);
+marg = marginal_nodes(engine, 1, 1);
 marg.T
+[max, ch] = max(marg.T);
+[min, ch] = min(marg.T);
+
+text = sprintf('MAX: %f, %f',[max, ch])
+
+text = sprintf('MIN: %f, %f',[max, ch])
+  
+% text = sprintf('Alex %f \n Alfred %f \n Anita %f \n Anne %f \n Bernard %f \n Charles %f \n' ...
+%                'Claire %f \n Eric %f \n Frans %f \n Joe %f \n Maria %f \n Max %f \n Philip %f \n Robert %f', marg.T)
 
