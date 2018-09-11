@@ -63,10 +63,8 @@ evidence(29) = {[]}; % BrownEyesFacialHair
 marg = marginal_nodes(engine, 1, 1);
 marg.T
 [max, ch] = max(marg.T);
-[min, ch] = min(marg.T);
-
 text = sprintf('MAX: %f, %f',[max, ch])
-
+[min, ch] = min(marg.T);
 text = sprintf('MIN: %f, %f',[max, ch])
   
 % text = sprintf('Alex %f \n Alfred %f \n Anita %f \n Anne %f \n Bernard %f \n Charles %f \n' ...
