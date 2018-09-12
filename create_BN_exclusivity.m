@@ -35,8 +35,8 @@ HatGlasses = 28; % 1
 BrownEyesFacialHair = 29; % 3
 
 
-HairColor = 30; % 5 => 130 
-HairStyle = 31; % 3 => 
+HairColor = 30; % 5 => 130
+HairStyle = 31; % 3 =>
 Sex = 32; % 2
 EyeColor =33; % 2
 FacialHair = 34; % 5
@@ -48,7 +48,7 @@ HairTexture = 39; % 3
 EyebrowThickness = 40; % 2
 %EarRings = 37; % 2
 RedCheek = 41; % 2
-SadLooking = 42;% 2 
+SadLooking = 42;% 2
 
 
 % Names of all the nodes
@@ -58,16 +58,16 @@ allNames = {'Characters'; 'PastBlackHair' ; 'PastBrownHair' ; 'PastBlondeHair' ;
 'PastCurlyHair' ; 'PastThickEyebrow' ; 'PastRedCheek' ; 'PastBigMouth' ;...
 'PastSadLooking'; 'BlackHairSadLooking'; 'BrownHairBigMouth';...
 'BlondeHairRedCheek'; 'ThickEyebrowRedHair'; 'CurlyHairShortHair';...
-'MaleWavyHair'; 'BrownEyesStraightHair'; 'FacialHairBigNose'; 'HatGlasses'; 'BrownEyesFacialHair'};%;...
-% 'Hair' ;  'HairStyle' ;...
-% 'Sex' ; 'BrownEyes' ; 'FacialHair' ; 'Hat' ; 'Glasses' ; 'NoseSize' ; ...
-% 'HairTexture' ; 'EyebrowThickness' ; 'RedCheek' ;...
-% 'MouthSize' ; 'SadLooking'};
+'MaleWavyHair'; 'BrownEyesStraightHair'; 'FacialHairBigNose'; 'HatGlasses'; 'BrownEyesFacialHair';...
+'Hair' ;  'HairStyle' ;...
+'Sex' ; 'BrownEyes' ; 'FacialHair' ; 'Hat' ; 'Glasses' ; 'NoseSize' ; ...
+'HairTexture' ; 'EyebrowThickness' ; 'RedCheek' ;...
+'MouthSize' ; 'SadLooking'};
 
 % Make BN
-% NumTotalNodes = length(allNames);
+NumTotalNodes = length(allNames);
 
-NumTotalNodes = BrownEyesFacialHair; % TODO change this when engine works
+% NumTotalNodes = BrownEyesFacialHair; % TODO change this when engine works
 dag = zeros(NumTotalNodes, NumTotalNodes);
 
 dag(Character_node, BlackHairSadLooking:BrownEyesFacialHair) =1;
@@ -83,22 +83,22 @@ dag([PastFacialHair PastBigNose], FacialHairBigNose) = 1 ;
 dag([PastHat PastGlasses], HatGlasses) = 1 ;
 dag([PastBrownEyes PastFacialHair], BrownEyesFacialHair) = 1 ;
 
-%connecting the co-occurences to the features
-% dag(BlackHairSadLooking, [HairColor,SadLooking]) = 1;
-% dag(BrownHairBigMouth, [HairColor, MouthSize])=1;
-% dag(BlondeHairRedCheek, [HairColor, RedCheek])=1;
-% dag(ThickEyebrowRedHair, [EyebrowThickness, HairColor])=1;
-% dag(CurlyHairShortHair, [HairTexture, HairStyle])=1;
-% dag(MaleWavyHair, [Sex, HairTexture])=1;
-% dag(BrownEyesStraightHair, [EyeColor, HairTexture])=1;
-% dag(FacialHairBigNose, [FacialHair, NoseSize])=1;
-% dag(HatGlasses, [Hat, Glasses])=1;
-% dag(BrownEyesFacialHair, [EyeColor, FacialHair])=1;
+% connecting the co-occurences to the features
+dag(BlackHairSadLooking, [HairColor,SadLooking]) = 1;
+dag(BrownHairBigMouth, [HairColor, MouthSize])=1;
+dag(BlondeHairRedCheek, [HairColor, RedCheek])=1;
+dag(ThickEyebrowRedHair, [EyebrowThickness, HairColor])=1;
+dag(CurlyHairShortHair, [HairTexture, HairStyle])=1;
+dag(MaleWavyHair, [Sex, HairTexture])=1;
+dag(BrownEyesStraightHair, [EyeColor, HairTexture])=1;
+dag(FacialHairBigNose, [FacialHair, NoseSize])=1;
+dag(HatGlasses, [Hat, Glasses])=1;
+dag(BrownEyesFacialHair, [EyeColor, FacialHair])=1;
 
 discrete_nodes = Character_node:NumTotalNodes;
 prefeatsz = 14 * 8; %size of the characters; size of the co-occurances
-ns_features = prefeatsz * [4, 2, 2,  2,  2, 2,  2,  2,  2, 3, 2, 2, 2]; 
-node_sizes = [14, 2 * ones(1,18), 2 * ones(1,10)]; % ,  ns_features];
+ns_features = prefeatsz * [4, 2, 2,  2,  2, 2,  2,  2,  2, 3, 2, 2, 2];
+node_sizes = [14, 2 * ones(1,18), 2 * ones(1,10),  ns_features];
 
 % Observed nodes
 %onodes = [Alex:Robert]; %Since all the characters are observed right>? this changes at a later stage
@@ -142,19 +142,22 @@ bnet.CPD{FacialHairBigNose} = tabular_CPD(bnet, FacialHairBigNose, FacialHairBig
 bnet.CPD{HatGlasses} = tabular_CPD(bnet, HatGlasses, HatGlassesTabCPT);
 bnet.CPD{BrownEyesFacialHair} = tabular_CPD(bnet, BrownEyesFacialHair, BrownEyesFacialHairCPT);
 
-% bnet.CPD{HairColor} = tabular_CPD(bnet, HairColor, [0.2857142857, 0.2142857143, 0.2857142857, 0.2142857143]); %Black-Brown-Blonde-Red
-% bnet.CPD{HairStyle} = tabular_CPD(bnet, HairStyle, [0.1428571429, 0.8571428571]); %LONG - SHORT
-% bnet.CPD{Sex} = tabular_CPD(bnet, Sex, [0.2857142857,0.7142857143]); %Female-Male
-% bnet.CPD{EyeColor} = tabular_CPD(bnet, EyeColor, [0.3571428571, 0.6428571429]); %Blue-Brown
-% bnet.CPD{FacialHair} = tabular_CPD(bnet, FacialHair, [0.6428571429, 0.3571428571]); %NO-Yes
-% bnet.CPD{MouthSize} = tabular_CPD(bnet, MouthSize, [0.5714285714, 0.4285714286]); %Small-Big
-% bnet.CPD{Hat} = tabular_CPD(bnet, Hat,[0.7142857143, 0.2857142857]); % No-Yes
-% bnet.CPD{Glasses} = tabular_CPD(bnet, Glasses,[0.8571428571, 0.1428571429]); % No-Yes
-% bnet.CPD{NoseSize} = tabular_CPD(bnet, NoseSize,[0.7142857143, 0.2857142857]); % Small-Big
-% bnet.CPD{HairTexture} = tabular_CPD(bnet, HairTexture,[0.5, 0.1428571429, 0.3571428571]); % Straight-Wavy-Curly
-% bnet.CPD{EyebrowThickness} = tabular_CPD(bnet, EyebrowThickness,[0.8571428571, 0.1428571429]);%Small-Thick
-% bnet.CPD{RedCheek} = tabular_CPD(bnet, RedCheek,[0.7857142857, 0.2142857143]);%No-Yes
-% bnet.CPD{SadLooking} = tabular_CPD(bnet, SadLooking,[0.7857142857, 0.2142857143]);%No-Yes
+feat_CPTs = calculateCPTFEAT();%[ns_features/prefeatsz], ...
+                             %allNames(BlackHairSadLooking:BrownEyesFacialHair));
+
+bnet.CPD{HairColor} = tabular_CPD(bnet, HairColor, feat_CPTs{1}); %Black-Brown-Blonde-Red
+bnet.CPD{HairStyle} = tabular_CPD(bnet, HairStyle, feat_CPTs{2}); %LONG - SHORT
+bnet.CPD{Sex} = tabular_CPD(bnet, Sex, feat_CPTs{3}); %Female-Male
+bnet.CPD{EyeColor} = tabular_CPD(bnet, EyeColor, feat_CPTs{4}); %Blue-Brown
+bnet.CPD{FacialHair} = tabular_CPD(bnet, FacialHair, feat_CPTs{5}); %NO-Yes
+bnet.CPD{MouthSize} = tabular_CPD(bnet, MouthSize, feat_CPTs{6}); %Small-Big
+bnet.CPD{Hat} = tabular_CPD(bnet, Hat, feat_CPTs{7}); % No-Yes
+bnet.CPD{Glasses} = tabular_CPD(bnet, Glasses, feat_CPTs{8}); % No-Yes
+bnet.CPD{NoseSize} = tabular_CPD(bnet, NoseSize, feat_CPTs{9}); % Small-Big
+bnet.CPD{HairTexture} = tabular_CPD(bnet, HairTexture, feat_CPTs{10}); % Straight-Wavy-Curly
+bnet.CPD{EyebrowThickness} = tabular_CPD(bnet, EyebrowThickness, feat_CPTs{11});%Small-Thick
+bnet.CPD{RedCheek} = tabular_CPD(bnet, RedCheek, feat_CPTs{12});%No-Yes
+bnet.CPD{SadLooking} = tabular_CPD(bnet, SadLooking, feat_CPTs{13});%No-Yes
 
 node_names = allNames;
 
