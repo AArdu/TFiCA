@@ -1,7 +1,7 @@
 function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
           ThickEyebrowRedHairCPT,CurlyHairShortHairCPT,MaleWavyHairCPT, ...
-          BrownEyesStraightHairCPT, FacialHairBigNoseCPT, HatGlassesTabCPT, ...
-          BrownEyesFacialHairCPT] = calculateCPTCOOC()
+          BrownEyesStraightHairCPT, FacialHairBigNoseCPT, HatGlassesCPT, ...
+          BrownEyesFacialHairCPT] = calculateCPTCOOC(coocfeat)
 
   d = load('Data/board.mat');
   featlist = d.gameboard;
@@ -74,20 +74,31 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
 
   % create empty tables
   function [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, ...
-            chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty()
-    chars_F_F_F = zeros(1,14);
-    chars_T_F_F = zeros(1,14);
-    chars_F_T_F = zeros(1,14);
-    chars_T_T_F = zeros(1,14);
-    chars_F_F_T = ones(1,14);
-    chars_T_F_T = ones(1,14);
-    chars_F_T_T = ones(1,14);
-    chars_T_T_T = ones(1,14);
+            chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty(coocfeat)
+        if coocfeat == 0
+            chars_F_F_F = zeros(1,14);
+            chars_T_F_F = zeros(1,14);
+            chars_F_T_F = zeros(1,14);
+            chars_T_T_F = zeros(1,14);
+            chars_F_F_T = ones(1,14);
+            chars_T_F_T = ones(1,14);
+            chars_F_T_T = ones(1,14);
+            chars_T_T_T = ones(1,14);
+        else
+            chars_F_F_F = zeros(1,14);
+            chars_T_F_F = zeros(1,14);
+            chars_F_T_F = zeros(1,14);
+            chars_T_T_F = zeros(1,14);
+            chars_F_F_T = zeros(1,14);
+            chars_T_F_T = zeros(1,14);
+            chars_F_T_T = zeros(1,14);
+            chars_T_T_T = zeros(1,14);
+        end
   end
 
 
   % BlackHairSadLookingTab
-  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty();
+  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty(coocfeat);
 
   chars_F_F_F(calc_cpts(blackhairfalse, sadlookingfalse)) = BlackHairSadLookingTab(1);
   chars_T_F_F(calc_cpts(blackhairtrue, sadlookingfalse))  = BlackHairSadLookingTab(2);
@@ -100,7 +111,7 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
   BlackHairSadLookingCPT = [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T]*(1/14);
 
   % BrownHairBigMouthTab
-  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty();
+  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty(coocfeat);
 
   chars_F_F_F(calc_cpts(brownhairfalse, bigmouthfalse))    = BrownHairBigMouthTab(1);
   chars_T_F_F(calc_cpts(brownhairtrue, bigmouthfalse))     = BrownHairBigMouthTab(2);
@@ -113,7 +124,7 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
   BrownHairBigMouthCPT = [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T]*(1/14);
 
   % BlondeHairRedCheekTab
-  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty();
+  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty(coocfeat);
 
   chars_F_F_F(calc_cpts(blondehairfalse, redcheekfalse))   = BlondeHairRedCheekTab(1);
   chars_T_F_F(calc_cpts(blondehairtrue, redcheekfalse))    = BlondeHairRedCheekTab(2);
@@ -126,7 +137,7 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
   BlondeHairRedCheekCPT = [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T]*(1/14);
 
   % ThickEyebrowRedHairTab
-  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty();
+  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty(coocfeat);
 
   chars_F_F_F(calc_cpts(thickeyebrowsfalse, redhairfalse)) = ThickEyebrowRedHairTab(1);
   chars_T_F_F(calc_cpts(thickeyebrowsfalse, redhairtrue))  = ThickEyebrowRedHairTab(2);
@@ -139,7 +150,7 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
   ThickEyebrowRedHairCPT = [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T]*(1/14);
 
   % CurlyHairShortHairTab
-  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty();
+  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty(coocfeat);
 
   chars_F_F_F(calc_cpts(curlyhairfalse, shorthairfalse))   = CurlyHairShortHairTab(1);
   chars_T_F_F(calc_cpts(curlyhairfalse, shorthairtrue))    = CurlyHairShortHairTab(2);
@@ -152,7 +163,7 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
   CurlyHairShortHairCPT =[chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T]*(1/14);
 
   % MaleWavyHairTab
-  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty();
+  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty(coocfeat);
 
   chars_F_F_F(calc_cpts(sexmalefalse, wavyhairfalse))      = MaleWavyHairTab(1);
   chars_T_F_F(calc_cpts(sexmaletrue, wavyhairfalse))       = MaleWavyHairTab(2);
@@ -165,7 +176,7 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
   MaleWavyHairCPT = [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T]*(1/14);
 
   % BrownEyesStraightHairTab
-  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty();
+  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty(coocfeat);
 
   chars_F_F_F(calc_cpts(browneyesfalse, straighthairfalse))  = BrownEyesStraightHairTab(1);
   chars_T_F_F(calc_cpts(browneyestrue, straighthairfalse))   = BrownEyesStraightHairTab(2);
@@ -178,7 +189,7 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
   BrownEyesStraightHairCPT = [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T]*(1/14);
 
   % FacialHairBigNoseTab
-  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty();
+  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty(coocfeat);
 
   chars_F_F_F(calc_cpts(facialhairfalse, bignosefalse))      = FacialHairBigNoseTab(1);
   chars_T_F_F(calc_cpts(facialhairtrue, bignosefalse))       = FacialHairBigNoseTab(2);
@@ -191,7 +202,7 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
   FacialHairBigNoseCPT = [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T]*(1/14);
 
   % HatGlassesTab
-  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty();
+  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty(coocfeat);
 
   chars_F_F_F(calc_cpts(hatfalse, glassesfalse))           = HatGlassesTab(1);
   chars_T_F_F(calc_cpts(hattrue, glassesfalse))            = HatGlassesTab(2);
@@ -201,10 +212,10 @@ function [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
   chars_T_F_T(calc_cpts(hattrue, glassesfalse))            = HatGlassesTab(6);
   chars_F_T_T(calc_cpts(hatfalse, glassestrue))            = HatGlassesTab(7);
   chars_T_T_T(calc_cpts(hattrue, glassestrue))             = HatGlassesTab(8);
-  HatGlassesTabCPT = [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T]*(1/14);
+  HatGlassesCPT = [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T]*(1/14);
 
   % BrownEyesFacialHairTab
-  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty();
+  [chars_F_F_F,chars_T_F_F,chars_F_T_F, chars_T_T_F, chars_F_F_T, chars_T_F_T, chars_F_T_T, chars_T_T_T] = obtainempty(coocfeat);
 
   chars_F_F_F(calc_cpts(browneyesfalse, facialhairfalse))    = BrownEyesFacialHairTab(1);
   chars_T_F_F(calc_cpts(browneyestrue, facialhairfalse))     = BrownEyesFacialHairTab(2);

@@ -130,7 +130,7 @@ bnet.CPD{PastSadLooking} = tabular_CPD(bnet, PastSadLooking, [0.7857142857, 0.21
 
 %%%%Setting the probabilities for the combinations of past features
 %Probabilities of this correspond to past occurances right? yes, combined with characters =>it is not combined with the characters here.
-[BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT,ThickEyebrowRedHairCPT,CurlyHairShortHairCPT,MaleWavyHairCPT,BrownEyesStraightHairCPT,FacialHairBigNoseCPT,HatGlassesTabCPT,BrownEyesFacialHairCPT] = calculateCPTCOOC();
+[BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT,ThickEyebrowRedHairCPT,CurlyHairShortHairCPT,MaleWavyHairCPT,BrownEyesStraightHairCPT,FacialHairBigNoseCPT,HatGlassesTabCPT,BrownEyesFacialHairCPT] = calculateCPTCOOC(0);
 bnet.CPD{BlackHairSadLooking} = tabular_CPD(bnet, BlackHairSadLooking, BlackHairSadLookingCPT');
 bnet.CPD{BrownHairBigMouth} = tabular_CPD(bnet, BrownHairBigMouth, BrownHairBigMouthCPT);
 bnet.CPD{BlondeHairRedCheek} = tabular_CPD(bnet, BlondeHairRedCheek, BlondeHairRedCheekCPT);
