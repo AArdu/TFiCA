@@ -131,7 +131,7 @@ bnet.CPD{PastSadLooking} = tabular_CPD(bnet, PastSadLooking, [0.7857142857, 0.21
 %%%%Setting the probabilities for the combinations of past features
 %Probabilities of this correspond to past occurances right? yes, combined with characters =>it is not combined with the characters here.
 [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT,ThickEyebrowRedHairCPT,CurlyHairShortHairCPT,MaleWavyHairCPT,BrownEyesStraightHairCPT,FacialHairBigNoseCPT,HatGlassesTabCPT,BrownEyesFacialHairCPT] = calculateCPTCOOC(0);
-bnet.CPD{BlackHairSadLooking} = tabular_CPD(bnet, BlackHairSadLooking, BlackHairSadLookingCPT');
+bnet.CPD{BlackHairSadLooking} = tabular_CPD(bnet, BlackHairSadLooking, BlackHairSadLookingCPT);
 bnet.CPD{BrownHairBigMouth} = tabular_CPD(bnet, BrownHairBigMouth, BrownHairBigMouthCPT);
 bnet.CPD{BlondeHairRedCheek} = tabular_CPD(bnet, BlondeHairRedCheek, BlondeHairRedCheekCPT);
 bnet.CPD{ThickEyebrowRedHair} = tabular_CPD(bnet, ThickEyebrowRedHair, ThickEyebrowRedHairCPT);
@@ -142,22 +142,23 @@ bnet.CPD{FacialHairBigNose} = tabular_CPD(bnet, FacialHairBigNose, FacialHairBig
 bnet.CPD{HatGlasses} = tabular_CPD(bnet, HatGlasses, HatGlassesTabCPT);
 bnet.CPD{BrownEyesFacialHair} = tabular_CPD(bnet, BrownEyesFacialHair, BrownEyesFacialHairCPT);
 
-feat_CPTs = calculateCPTFEAT();%[ns_features/prefeatsz], ...
-                             %allNames(BlackHairSadLooking:BrownEyesFacialHair));
+[HairCPT,  HairStyleCPT, SexCPT, EyesColorCPT, FacialHairCPT, HatCPT, ...
+ GlassesCPT, NoseSizeCPT, HairTextureCPT, EyebrowThicknessCPT, RedCheekCPT, ...
+MouthSizeCPT, SadLookingCPT] = calculateCPTFEAT();
 
-bnet.CPD{HairColor} = tabular_CPD(bnet, HairColor, feat_CPTs{1}); %Black-Brown-Blonde-Red
-bnet.CPD{HairStyle} = tabular_CPD(bnet, HairStyle, feat_CPTs{2}); %LONG - SHORT
-bnet.CPD{Sex} = tabular_CPD(bnet, Sex, feat_CPTs{3}); %Female-Male
-bnet.CPD{EyeColor} = tabular_CPD(bnet, EyeColor, feat_CPTs{4}); %Blue-Brown
-bnet.CPD{FacialHair} = tabular_CPD(bnet, FacialHair, feat_CPTs{5}); %NO-Yes
-bnet.CPD{MouthSize} = tabular_CPD(bnet, MouthSize, feat_CPTs{6}); %Small-Big
-bnet.CPD{Hat} = tabular_CPD(bnet, Hat, feat_CPTs{7}); % No-Yes
-bnet.CPD{Glasses} = tabular_CPD(bnet, Glasses, feat_CPTs{8}); % No-Yes
-bnet.CPD{NoseSize} = tabular_CPD(bnet, NoseSize, feat_CPTs{9}); % Small-Big
-bnet.CPD{HairTexture} = tabular_CPD(bnet, HairTexture, feat_CPTs{10}); % Straight-Wavy-Curly
-bnet.CPD{EyebrowThickness} = tabular_CPD(bnet, EyebrowThickness, feat_CPTs{11});%Small-Thick
-bnet.CPD{RedCheek} = tabular_CPD(bnet, RedCheek, feat_CPTs{12});%No-Yes
-bnet.CPD{SadLooking} = tabular_CPD(bnet, SadLooking, feat_CPTs{13});%No-Yes
+bnet.CPD{HairColor} = tabular_CPD(bnet, HairColor, HairCPT); %Black-Brown-Blonde-Red
+bnet.CPD{HairStyle} = tabular_CPD(bnet, HairStyle, HairStyleCPT); %LONG - SHORT
+bnet.CPD{Sex} = tabular_CPD(bnet, Sex, SexCPT); %Female-Male
+bnet.CPD{EyeColor} = tabular_CPD(bnet, EyeColor, BrownEyesCPT); %Blue-Brown
+bnet.CPD{FacialHair} = tabular_CPD(bnet, FacialHair, FacialHairCPT); %NO-Yes
+bnet.CPD{MouthSize} = tabular_CPD(bnet, MouthSize, MouthSizeCPT); %Small-Big
+bnet.CPD{Hat} = tabular_CPD(bnet, Hat, HatCPT); % No-Yes
+bnet.CPD{Glasses} = tabular_CPD(bnet, Glasses, GlassesCPT); % No-Yes
+bnet.CPD{NoseSize} = tabular_CPD(bnet, NoseSize, NoseSizeCPT); % Small-Big
+bnet.CPD{HairTexture} = tabular_CPD(bnet, HairTexture, HairTextureCPT); % Straight-Wavy-Curly
+bnet.CPD{EyebrowThickness} = tabular_CPD(bnet, EyebrowThickness, EyebrowThicknessCPT);%Small-Thick
+bnet.CPD{RedCheek} = tabular_CPD(bnet, RedCheek, RedCheekCPT);%No-Yes
+bnet.CPD{SadLooking} = tabular_CPD(bnet, SadLooking, SadLookingCPT);%No-Yes
 
 node_names = allNames;
 

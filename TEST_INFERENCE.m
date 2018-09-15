@@ -59,19 +59,19 @@ evidence(28) = {[]}; % HatGlasses
 evidence(29) = {[]}; % BrownEyesFacialHair
 
 % Uncomment when features are ready
-% evidence(30) = {[]}; % Hair
-% evidence(31) = {[]}; % HairStyle
-% evidence(32) = {[]}; % Sex
-% evidence(33) = {[]}; % BrownEyes
-% evidence(34) = {[]}; % FacialHair
-% evidence(35) = {[]}; % Hat
-% evidence(36) = {[]}; % Glasses
-% evidence(37) = {[]}; % NoseSize
-% evidence(38) = {[]}; % HairTexture
-% evidence(39) = {[]}; % EyebrowThickness
-% evidence(40) = {[]}; % RedCheek
-% evidence(41) = {[]}; % MouthSize
-% evidence(42) = {[]}; % SadLooking
+evidence(30) = {[]}; % Hair
+evidence(31) = {[]}; % HairStyle
+evidence(32) = {[]}; % Sex
+evidence(33) = {[]}; % BrownEyes
+evidence(34) = {[]}; % FacialHair
+evidence(35) = {[]}; % Hat
+evidence(36) = {[]}; % Glasses
+evidence(37) = {[]}; % NoseSize
+evidence(38) = {[]}; % HairTexture
+evidence(39) = {[]}; % EyebrowThickness
+evidence(40) = {[]}; % RedCheek
+evidence(41) = {[]}; % MouthSize
+evidence(42) = {[]}; % SadLooking
 
 [engine, loglike] = enter_evidence(ag.BN_engine, evidence);
 marg = marginal_nodes(engine, 1, 1);
