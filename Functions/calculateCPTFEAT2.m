@@ -10,6 +10,14 @@ function feat_CPTs = calculateCPTFEAT(fsize, cooc_names, cooc_prob, character_ta
 d = load('Data/board.mat');
   featlist = d.gameboard;
 
+  probabilities_features = [0.2857142857	0.2142857143	0.2857142857	...
+      0.2142857143	0.8571428571	0.7142857143	0.6428571429	0.3571428571...
+      0.2857142857	0.1428571429	0.2857142857	0.5	0.1428571429	0.3571428571...
+      0.1428571429	0.2142857143	0.4285714286	0.2142857143; 0.7142857143...
+      0.7857142857	0.7142857143	0.7857142857	0.1428571429	0.2857142857...
+      0.3571428571	0.6428571429	0.7142857143	0.8571428571	0.7142857143...
+      0.5	0.8571428571	0.6428571429	0.8571428571	0.7857142857...
+      0.5714285714	0.7857142857];
   [BlackHairSadLookingCPT,BrownHairBigMouthCPT,BlondeHairRedCheekCPT, ...
           ThickEyebrowRedHairCPT,CurlyHairShortHairCPT,MaleWavyHairCPT, ...
           BrownEyesStraightHairCPT, FacialHairBigNoseCPT, HatGlassesCPT, ...
@@ -48,7 +56,30 @@ d = load('Data/board.mat');
 %   maxihf = max(ht,[],2);
 %   HatTrue = character_table .* maxihf;
 %   
-
+  
+  BlackHair = zeros(28,2);
+  BrownHair = zeros(28,2);
+  for i=1:28
+      if i ~=14 && i ~=28
+        char_idx = mod(i,14); %which character are we looking at
+      else
+          char_idx=14;
+      end
+      %character * co-occurance * feature . 1/14 * F * F
+      if i <15
+        BlackHair(i,1) = character_table(char_idx) .* BlackHairSadLookingCPT(char_idx,2) .* probabilities_features(2,1) +  character_table(char_idx) .* BlackHairSadLookingCPT(char_idx,4) .* probabilities_features(2,1);
+        BlackHair(i,2) = character_table(char_idx) .* BlackHairSadLookingCPT(char_idx,2) .* probabilities_features(1,1) +  character_table(char_idx) .* BlackHairSadLookingCPT(char_idx,4) .* probabilities_features(1,1);
+        BlondeHair(i,1) = character_table(char_idx) .* BlondeHairRedCheekCPT(char_idx,2) .* probabilities_features(2,1) +  character_table(char_idx) .* BlondeHairRedCheekCPT(char_idx,4) .* probabilities_features(2,1); %BLONDEHAIR => feat column 3.
+        BlondeHair(i,2) = character_table(char_idx) .* BlondeHairRedCheekCPT(char_idx,2) .* probabilities_features(1,1) +  character_table(char_idx) .* BlondeHairRedCheekCPT(char_idx,4) .* probabilities_features(1,1);
+      else
+        BlackHair(i,1) = character_table(char_idx) .* BlackHairSadLookingCPT(char_idx,6) .* probabilities_features(2,1) +  character_table(char_idx) .* BlackHairSadLookingCPT(char_idx,8) .* probabilities_features(2,1);
+        BlackHair(i,2) = character_table(char_idx) .* BlackHairSadLookingCPT(char_idx,6) .* probabilities_features(1,1) +  character_table(char_idx) .* BlackHairSadLookingCPT(char_idx,8) .* probabilities_features(1,1);   
+      end
+  end
+  
+  BrownHair = zeros(28,2);
+  BlondeHair = zeros(28,2);
+  RedHair = zeros(28,2);
   HatTrue = zeros(14,2);
   HatFalse = ones(14,2);
   for i = 1:length(character_table)
