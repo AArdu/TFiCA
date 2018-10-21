@@ -5,7 +5,8 @@
 %for the blackhairSadlooking..such that there indeed 1 false 1 true entry
 %for each character.
 %Then multiply by the probabilities for the characters >?
-function feat_CPTs = calculateCPTFEAT2() %calculateCPTFEAT(fsize, cooc_names, cooc_prob, character_table)
+function [BlackHair, BrownHair,BlondeHair, RedHair, ShortHair, Male, BrownEyes, FacialHair, Hat,Glasses, BigNose, StraightHair, WavyHair, CurlyHair, ThickEyebrow...
+    RedCheek, BigMouth, SadLooking] = calculateCPTFEAT2() %calculateCPTFEAT(fsize, cooc_names, cooc_prob, character_table)
 %incl table for which character are still true? -> character_table
 d = load('Data/board.mat');
 featlist = d.gameboard;
@@ -37,26 +38,6 @@ BrownEyesFacialHairCPT = reshape(BrownEyesFacialHairCPT, [14,8]);
 
 %Obtaining Blackhair. -> check cooc for second and fourth entry. check
 %character_table for the probabilities of each of the characters.
-SadLookingTrue = zeros(14,1);
-SadLookingFalse = ones(14,1);
-RedCheekTrue = zeros(14,1);
-RedCheeckFalse= ones(14,1);
-MaleTrue=zeros(14,1);
-MaleFalse=ones(14,1);
-
-BigMouthTrue = zeros(14,1);
-BigMouthFalse=ones(14,1);
-ThickEyebrowTrue=zeros(14,1);
-ThickEyebrowFalse=ones(14,1);
-
-%
-%   hf = HatGlassesCPT(:,1:4);
-%   maxihf = max(hf,[],2);
-%   HatFalse = character_table .* maxihf;
-%   ht = HatGlassesCPT(:,5:8);
-%   maxihf = max(ht,[],2);
-%   HatTrue = character_table .* maxihf;
-%
 
 BlackHair = zeros(28,2);
 BrownHair = zeros(28,2);
@@ -94,7 +75,6 @@ for i=1:28
         BlondeHair(i,2) = character_table(char_idx) .* BlondeHairRedCheekCPT(char_idx,2) .* probabilities_features(1,3) +  character_table(char_idx) .* BlondeHairRedCheekCPT(char_idx,4) .* probabilities_features(1,3);
         RedHair(i,1) = character_table(char_idx) .* ThickEyebrowRedHairCPT(char_idx,2) .* probabilities_features(2,4) +  character_table(char_idx) .* ThickEyebrowRedHairCPT(char_idx,4) .* probabilities_features(2,4); %BLONDEHAIR => feat column 3.
         RedHair(i,2) = character_table(char_idx) .* ThickEyebrowRedHairCPT(char_idx,2) .* probabilities_features(1,4) +  character_table(char_idx) .* ThickEyebrowRedHairCPT(char_idx,4) .* probabilities_features(1,4);
-        
         ShortHair(i,1) = character_table(char_idx) .* CurlyHairShortHairCPT(char_idx,2) .* probabilities_features(2,5) +  character_table(char_idx) .* CurlyHairShortHairCPT(char_idx,4) .* probabilities_features(2,5);
         ShortHair(i,2) = character_table(char_idx) .* CurlyHairShortHairCPT(char_idx,2) .* probabilities_features(1,5) +  character_table(char_idx) .* CurlyHairShortHairCPT(char_idx,4) .* probabilities_features(1,5);
         Male(i,1) = character_table(char_idx) .* MaleWavyHairCPT(char_idx,2) .* probabilities_features(2,6) +  character_table(char_idx) .* MaleWavyHairCPT(char_idx,4) .* probabilities_features(2,6);
@@ -172,24 +152,33 @@ for i=1:28
     end
 end
 
+%calculate Hair Feature
+%only sum of values in second column?
+truthblackhair = sum(BlackHair(:,2));
+truthbrownhair = sum(BrownHair(:,2));
+truthblondehair = sum(BlondeHair(:,2));
+truthredhair = sum(RedHair(:,2));
 
-feat_CPTs= [BlackHair, BrownHair,BlondeHair, RedHair, ShortHair, Male, BrownEyes, FacialHair, Hat,Glasses, BigNose, StraightHair, WavyHair, CurlyHair, ThickEyebrow...
-    RedCheek, BigMouth, SadLooking];
-%   HatTrue = zeros(14,2);
-%   HatFalse = ones(14,2);
-%   for i = 1:length(character_table)
-%       HatFalse(i) = HatGlassesCPT(i,2) + HatGlassesCPT(i,4);
-%       if (HatFalse(i) == 0)
-%           HatFalse(i) = 1;
-%       end
-%   end
-%   for i = 1:length(character_table)
-%       HatTrue(i) = HatGlassesCPT(i,6) + HatGlassesCPT(i,8);
-%   end
-%   Hat = [HatFalse; HatTrue]
-%   for i=1:28
-%       Hat(i,2) = 1 - Hat(i,1);
-%   end
-%facial hair bignose
+Hair = truthblackhair + truthbrownhair + truthblondehair + truthredhair;
+Hair = [1 - truthblackhair, truthblackhair; 1 - truthbrownhair, truthbrownhair; 1 - truthblondehair, truthblondehair; 1-truthredhair, truthredhair]; 
+HairStyle = [1 - sum(ShortHair(:,2)), sum(ShortHair(:,2))] ;
+Sex = [1-sum(Male(:,2)), sum(Male(:,2))];
+Eyecolor= [1-sum(BrownEyes(:,2)), sum(BrownEyes(:,2))];
+Facialhair = [1-sum(FacialHair(:,2)),sum(FacialHair(:,2))];
+hasHat = [1-sum(Hat(:,2)), sum(Hat(:,2))];
+hasGlasses = [1-sum(Glasses(:,2)), sum(Glasses(:,2))]; 
+NoseSize = [1-sum(BigNose(:,2)), sum(BigNose(:,2))];
+
+truthstraighthair = sum(StraightHair(:,2));
+truthwavyhair = sum(WavyHair(:,2));
+truthcurlyhair = sum(CurlyHair(:,2));
+HairTexture = [1-truthstraighthair, truthstraighthair; 1- truthwavyhair, truthwavyhair; 1- truthcurlyhair, truthcurlyhair];
+EyebrowThickness = [1-sum(ThickEyebrow(:,2)),sum(ThickEyebrow(:,2))];
+RedCheeks = [1-sum(RedCheek(:,2)), sum(RedCheek(:,2))];
+MouthSize = [1-sum(BigMouth(:,2)), sum(BigMouth(:,2))];
+isSadLooking = [1-sum(SadLooking(:,2)), sum(SadLooking(:,2))];
+% feat_CPTs= [BlackHair, BrownHair,BlondeHair, RedHair, ShortHair, Male, BrownEyes, FacialHair, Hat,Glasses, BigNose, StraightHair, WavyHair, CurlyHair, ThickEyebrow...
+%     RedCheek, BigMouth, SadLooking];
+
 
 end
